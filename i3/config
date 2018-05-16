@@ -1,0 +1,147 @@
+## Few variables
+# The modifier is Windows key
+set $mod Mod4
+
+# Colors
+set $borderColor     #0DA000
+set $borderInactive  #086000
+
+set $bgColor         #0C1530
+set $txColor         #D8B5E3
+
+set $bgColorInactive #1A2546
+set $txColorInactive #2C375A
+
+set $bgColorUrgent   #A643B6
+
+# Setting the workspace names
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
+set $ws7 "7: "
+set $ws8 "8: "
+set $ws9 "9: "
+set $ws10 "10: "
+set $ws11 "SECURE - "
+
+font pango:Hack Nerd Font:11
+floating_modifier $mod
+
+# Gaps around the windows
+gaps inner 15
+gaps outer 15
+
+# Borders
+default_border pixel 3px
+default_floating_border pixel 3px
+
+## Key bindings
+bindsym $mod+q kill
+
+# Change focus
+bindsym $mod+h           focus left
+bindsym $mod+j           focus down
+bindsym $mod+k           focus up
+bindsym $mod+l           focus right
+
+# Move frame
+bindsym $mod+Shift+h     move left 30
+bindsym $mod+Shift+j     move down 30
+bindsym $mod+Shift+k     move up 30
+bindsym $mod+Shift+l     move right 30
+
+bindsym $mod+f           fullscreen toggle
+
+# Changing layout
+bindsym $mod+r           layout tabbed
+bindsym $mod+Shift+r     layout default
+bindsym $mod+Shift+space floating toggle
+
+# Changing workspace
+bindsym $mod+ampersand workspace $ws1
+bindsym $mod+eacute workspace $ws2; layout tabbed
+bindsym $mod+quotedbl workspace $ws3
+bindsym $mod+apostrophe workspace $ws4
+bindsym $mod+parenleft workspace $ws5
+bindsym $mod+minus workspace $ws6
+bindsym $mod+egrave workspace $ws7
+bindsym $mod+underscore workspace $ws8
+bindsym $mod+ccedilla workspace $ws9
+bindsym $mod+agrave workspace $ws10
+bindsym $mod+Escape workspace next
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+eacute move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+egrave move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+ccedilla move container to workspace $ws9
+bindsym $mod+Shift+agrave move container to workspace $ws10
+
+# Move the current workspace to other screen
+bindsym $mod+Ctrl+1 move workspace to output left
+bindsym $mod+Ctrl+2 move workspace to output right
+
+# Laptop sortcuts
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# Softwares
+bindsym $mod+Return       exec python ~/.files/scripts/ror.py "termite" "termite -e 'tmux new-session -A -s main'"
+bindsym $mod+Shift+Return exec i3-sensible-terminal
+bindsym $mod+space        exec rofi -show run -font "Hack Nerd Font 11"
+bindsym $mod+w            exec firefox                                                                                     # w for Web
+bindsym $mod+y            exec firefox "https://youtube.com/"                                                              # y for Youtube
+bindsym $mod+m            exec python ~/.files/scripts/ror.py "Spotify" "spotify"                                          # m for Music
+bindsym $mod+p            exec keeweb                                                                                      # p for Password
+bindsym $mod+t            exec thunar                                                                                      # t for Thunar
+bindsym Print             exec maim -su ~/Pictures/$(date +%s).png
+
+## Startup softwares
+# Setting screen the correct way around
+exec --no-startup-id ~/.file/desktop_screen.sh
+
+# Some standard softs
+exec --no-startup-id fluxgui
+exec --no-startup-id udiskie -a -t -2
+exec --no-startup-id dunst
+exec --no-startup-id nm-applet
+
+# Setting wallpaper
+exec --no-startup-id feh --bg-fill ~/.files/wall.jpg
+
+# Swapping escape and caps lock
+exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
+
+# Don't go to sleep
+exec --no-startup-id xset s off -dpms
+
+# Setting firefox as default browser, of course
+exec --no-startup-id xdg-settings set default-web-browser firefox.desktop
+
+## Design setup
+client.focused          $borderColor    $borderColor    $bgColor $borderColor    $borderColor
+client.focused_inactive $borderInactive $borderInactive $bgColor $borderInactive $borderInactive
+client.unfocused        $borderInactive $borderInactive $bgColor $borderInactive $borderInactive
+client.urgent           $bgColorUgent   $bgColorUrgent  $txColor $bgColorUrgent  $bgColorUrgent
+client.background                       $bgColor
+
+## Bar setup
+bar {
+	position top
+	height 27
+	status_command i3blocks
+	colors {
+		background $bgcolor
+		statusline #fdf6e3
+		focused_workspace  $bgcolor         $bgcolor         $txColor
+		inactive_workspace $bgColorInactive $bgColorInactive $txColorInactive
+		urgent_workspace   $bgColorUrgent   $bgColorUrgent   $txColor
+	}
+}

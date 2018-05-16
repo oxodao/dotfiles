@@ -1,0 +1,33 @@
+separator=false
+separator_block_width=5
+
+[cpu]
+interval=5
+markup=pango
+command=~/.files/scripts/ram_lite.sh
+
+[cpu]
+interval=10
+markup=pango
+command=~/.files/scripts/cpu.sh
+
+[battery]
+interval=10
+markup=pango
+command=~/.files/scripts/battery.sh
+
+[volume]
+label=    
+command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && ((/usr/bin/pavucontrol -t 3 --name "pavucontrol-bar" || true) && $HOME/.files/scripts/volume_control.py signal) || $HOME/.files/scripts/volume_control.py toggle ); $HOME/.files/scripts/volume_control.py i3blocks
+interval=1
+signal=1
+markup=pango
+color=#676E7D
+
+[time]
+label=    
+command=echo "`date +'%d/%m/%y'` <b>`date +'%T'`</b> "; [[ -z "${BLOCK_BUTTON}" ]] || gsimplecal &
+interval=1
+markup=pango
+color=#676E7D
+separator_block_width=0
