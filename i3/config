@@ -35,8 +35,8 @@ gaps inner 15
 gaps outer 15
 
 # Borders
-default_border pixel 3px
-default_floating_border pixel 3px
+default_border normal 3px
+default_floating_border normal 3px
 
 ## Key bindings
 bindsym $mod+q kill
