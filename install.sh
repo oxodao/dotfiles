@@ -26,6 +26,12 @@ ln -s $(pwd)/i3/resources ~/.Xresources
 echo "Installing termite theme"
 ln -s $(pwd)/termite/config ~/.config/termite/config
 
+echo "Installing firefox"
+FX_PATH=$(cat ~/.mozilla/firefox/profiles.ini | grep 'Path=' | sed s/^Path=//)
+CHR_FLD="$HOME/.mozilla/firefox/$FX_PATH/chrome"
+mkdir -p $CHR_FLD
+ln -s $(pwd)/firefox/userchrome $CHR_FLD/userChrome.css
+
 echo "Installing Git config"
 ln -s $(pwd)/git/config   ~/.gitconfig
 ln -s $(pwd)/git/ignore   ~/.gitignore
