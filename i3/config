@@ -103,6 +103,13 @@ bindsym $mod+p            exec keeweb                                           
 bindsym $mod+t            exec thunar                                                                                      # t for Thunar
 bindsym Print             exec maim -su ~/Pictures/$(date +%s).png
 
+# Gaps
+bindsym $mod+d            gaps inner current set 15; gaps outer current set 15; border normal;
+bindsym $mod+Shift+d      gaps inner current set 0; gaps outer current set 0; border pixel;
+
+# Weird stuff that happens to me
+bindsym $mod+o ~/.files/scripts/keyboardrepare
+
 ## Startup softwares
 # Setting screen the correct way around
 exec --no-startup-id ~/.file/desktop_screen.sh
@@ -112,6 +119,8 @@ exec --no-startup-id fluxgui
 exec --no-startup-id udiskie -a -t -2
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id dropbox             # Meh
 
 # Setting wallpaper
 exec --no-startup-id feh --bg-fill ~/.files/wall.jpg
@@ -124,6 +133,14 @@ exec --no-startup-id xset s off -dpms
 
 # Setting firefox as default browser, of course
 exec --no-startup-id xdg-settings set default-web-browser firefox.desktop
+
+## Assigning the software to their workspaces
+assign[class="Firefox"] $ws1
+assign[class="Termite"] $ws2
+assign[class="Spotify"] $ws10
+assign[class="KeeWeb"] $ws9
+assign[class="Slack"] $ws8
+assign[class="qTox"] $ws8
 
 ## Design setup
 client.focused          $borderColor    $borderColor    $bgColor $borderColor    $borderColor
