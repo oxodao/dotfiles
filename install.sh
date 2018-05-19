@@ -3,7 +3,8 @@ echo "Your current folder is $(pwd). Please be sure the folder that won't move."
 
 echo "Removing old symlink & creating directories"
 rm ~/.files
-rm ~/.config/termite/config
+mv ~/.config/termite/config ~/.config/termite/config_bak
+mv ~/.tmux.conf ~/.tmux.conf_bak
 mkdir -p ~/.config/i3
 mkdir -p ~/.config/i3blocks
 mkdir -p ~/.config/dunst
