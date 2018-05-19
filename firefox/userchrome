@@ -1,0 +1,61 @@
+#back-button, #forward-button, #pageActionSeparator, #pageActionButton, #pocket-button-box, #nav-bar-overflow-button{
+	display: none;
+}
+
+.tabbrowser-tab{
+	font-size: 12px;
+}
+
+.tabbrowser-tab[selected=true]{
+	border-bottom: 1px solid #D8B5E3 !important;
+}
+
+#toolbar-menubar {
+	background-color: #0C1530;
+	color: #D8B5E3;
+}
+
+#personal-bookmarks{
+	background-color: #1A2546 !important;
+	color: #D8B5E3 !important;
+}
+
+#TabsToolbar{
+	background-color: #0C1530 !important;
+	color: #D8B5E3 !important;
+}
+
+.tab-content{
+	background-color: #1A2546 !important;
+	border-left: solid 1px #D8B5E3;
+	border-right: solid 1px #D8B5E3;
+	color: #D8B5E3 !important;
+}
+
+#nav-bar-customization-target{
+	background-color: #0C1530 !important;
+	color: #D8B5E3 !important;
+}
+
+#PanelUI-button{
+	background-color: #0C1530 !important;
+	color: #D8B5E3 !important;
+}
+
+#nav-bar{
+	background-color: #0C1530 !important;
+}
+
+#PersonalToolbar{
+	background-color: #1A2546 !important;
+}
+
+#urlbar {
+	background-color: #1A2546 !important;
+	color: #D8B5E3 !important;
+}
+
+.searchbar-textbox{
+	background-color: #1A2546 !important;
+	color: #D8B5E3 !important;
+}
