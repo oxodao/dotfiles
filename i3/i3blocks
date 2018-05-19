@@ -1,7 +1,7 @@
 separator=false
 separator_block_width=5
 
-[cpu]
+[ram]
 interval=5
 markup=pango
 command=~/.files/scripts/ram_lite.sh
@@ -25,7 +25,7 @@ markup=pango
 color=#676E7D
 
 [time]
-label=    
+label=   
 command=echo "`date +'%d/%m/%y'` <b>`date +'%T'`</b> "; [[ -z "${BLOCK_BUTTON}" ]] || gsimplecal &
 interval=1
 markup=pango
