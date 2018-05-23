@@ -93,14 +93,14 @@ bindsym XF86MonBrightnessUp   exec xbacklight -inc 20
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # Softwares
-bindsym $mod+Return       exec python ~/.files/scripts/ror.py "termite" "termite -e 'tmux new-session -A -s main'"
-bindsym $mod+Shift+Return exec i3-sensible-terminal
-bindsym $mod+space        exec rofi -show run -font "Hack Nerd Font 11"
-bindsym $mod+w            exec firefox                                                                                     # w for Web
-bindsym $mod+y            exec firefox "https://youtube.com/"                                                              # y for Youtube
-bindsym $mod+m            exec python ~/.files/scripts/ror.py "Spotify" "spotify"                                          # m for Music
-bindsym $mod+p            exec keeweb                                                                                      # p for Password
-bindsym $mod+t            exec thunar                                                                                      # t for Thunar
+bindsym $mod+Return       workspace $ws2;  exec python ~/.files/scripts/ror.py "termite" "termite -e 'tmux new-session -A -s main'"
+bindsym $mod+Shift+Return workspace $ws2;  exec i3-sensible-terminal
+bindsym $mod+space        exec rofi -show  run -font "Hack Nerd Font 11"
+bindsym $mod+w            workspace $ws1;  exec firefox                                                                                     # w for Web
+bindsym $mod+y            workspace $ws1;  exec firefox "https://youtube.com/"                                                              # y for Youtube
+bindsym $mod+m            workspace $ws10; exec python ~/.files/scripts/ror.py "Spotify" "spotify"                                          # m for Music
+bindsym $mod+p            workspace $ws9;  exec keeweb                                                                                      # p for Password
+bindsym $mod+t            workspace $ws4;  exec thunar                                                                                      # t for Thunar
 bindsym Print             exec maim -su ~/Pictures/$(date +%s).png
 
 # Gaps
