@@ -42,4 +42,6 @@ package-lock.json
 
 # IntelliJ / PhpStorm #
 #######################
-idea/
+.idea/
+env
+env.prod
