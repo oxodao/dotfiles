@@ -12,13 +12,13 @@ def getip(inter):
         ipaddr = False;
     return ipaddr;
 
-ipEth = getip("enp3s0");
-ipWif = getip("enp3s0"); # No wifi on my desktop so for shake of not breaking everything everywhere I just set both to the same interface
+ipEth  = getip("enp0s25");
+ipWifi = getip("wlp3s0");
 
 if (ipEth):
     print(ipEth);
-
-if (ipWif):
-    time.sleep(.5);
-    print(ipWif);
-
+else if(ipWifi):
+    sleep(.5);
+    print(ipWifi);
+else:
+    print("No internet");
