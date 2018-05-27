@@ -68,7 +68,7 @@ bindsym $mod+apostrophe workspace $ws4
 bindsym $mod+parenleft workspace $ws5
 bindsym $mod+minus workspace $ws6
 bindsym $mod+egrave workspace $ws7
-bindsym $mod+underscore workspace $ws8
+bindsym $mod+underscore workspace $ws8; layout tabbed
 bindsym $mod+ccedilla workspace $ws9
 bindsym $mod+agrave workspace $ws10
 bindsym $mod+Escape workspace next
@@ -108,7 +108,11 @@ bindsym $mod+d            gaps inner current set 15; gaps outer current set 15; 
 bindsym $mod+Shift+d      gaps inner current set 0; gaps outer current set 0; border pixel;
 
 # Weird stuff that happens to me
-bindsym $mod+o ~/.files/scripts/keyboardrepare
+bindsym $mod+o exec ~/.files/scripts/keyboardrepare
+
+# Music player
+bindsym $mod+Left exec playerctl previous
+bindsym $mod+Right exec playerctl next
 
 ## Startup softwares
 # Setting screen the correct way around
@@ -138,8 +142,10 @@ exec --no-startup-id xdg-settings set default-web-browser firefox.desktop
 assign[class="Firefox"]            $ws1
 assign[class="Termite"]            $ws2
 assign[class="jetbrains-phpstorm"] $ws3
+assign[class="jetbrains-idea"]     $ws3
 assign[class="Thunar"]             $ws4
 assign[class="Slack"]              $ws8
+assign[class="Mattermost"]         $ws8
 assign[class="qTox"]               $ws8
 assign[class="KeeWeb"]             $ws9
 assign[class="Spotify"]            $ws10

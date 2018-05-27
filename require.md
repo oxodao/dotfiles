@@ -1,5 +1,6 @@
 # Requirements
 
+- lm-sensors
 - tmux
 - termite
 - vim
