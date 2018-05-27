@@ -17,8 +17,9 @@ ipWifi = getip("wlp3s0");
 
 if (ipEth):
     print(ipEth);
-else if(ipWifi):
-    sleep(.5);
+elif(ipWifi):
+    time.sleep(.5);
     print(ipWifi);
 else:
+    time.sleep(.5);
     print("No internet");

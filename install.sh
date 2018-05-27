@@ -34,6 +34,7 @@ echo "Creating symlink for main folder"
 ln -s $(pwd)/files        ~/.files
 
 echo "Linking machine specific stuff"
+mkdir $(pwd)/files/scripts/machine
 ln -s $(pwd)/files/scripts/ip.$MACHINE.py $(pwd)/files/scripts/machine/ip.py
 
 echo "Installing zsh"
