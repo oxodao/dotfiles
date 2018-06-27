@@ -40,6 +40,7 @@ default_floating_border normal 3px
 
 ## Key bindings
 bindsym $mod+q kill
+bindsym XF86Launch1 exec sos_system
 
 # Change focus
 bindsym $mod+h           focus left
@@ -88,20 +89,36 @@ bindsym $mod+Shift+agrave move container to workspace $ws10
 bindsym $mod+Ctrl+1 move workspace to output left
 bindsym $mod+Ctrl+2 move workspace to output right
 
+# Shortcut to switch to external output
+bindsym $mod+F9  exec ~/.screenlayout/internal.sh
+bindsym $mod+F10 exec ~/.screenlayout/dual_101.sh
+
 # Laptop sortcuts
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 20
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Softwares
 bindsym $mod+Return       workspace $ws2;  exec python ~/.files/scripts/ror.py "termite" "termite -e 'tmux new-session -A -s main'"
-bindsym $mod+Shift+Return workspace $ws2;  exec i3-sensible-terminal
-bindsym $mod+space        exec rofi -show  run -font "Hack Nerd Font 11"
+
+bindsym $mod+Shift+Return       workspace $ws2;  exec termite -e '~/.scripts/tmux_session.sh'
+
+bindsym $mod+space        exec rofi -show run -font "Hack Nerd Font 11"
+
+# Requires rofi-emoji package (Ctrl+Win+Space)
+bindsym $mod+Ctrl+space   exec --no-startup-id "rofi -show emoji -modi"
+
+# Requires rofi-calc package (Win+Alt+Space)
+bindsym $mod+Mod1+space    exec --no-startup-id "rofi -show calc -modi calc -no-show-match -no-sort"
+
 bindsym $mod+w            workspace $ws1;  exec firefox                                                                                     # w for Web
 bindsym $mod+y            workspace $ws1;  exec firefox "https://youtube.com/"                                                              # y for Youtube
 bindsym $mod+m            workspace $ws10; exec python ~/.files/scripts/ror.py "Spotify" "spotify"                                          # m for Music
 bindsym $mod+p            workspace $ws9;  exec keeweb                                                                                      # p for Password
 bindsym $mod+t            workspace $ws4;  exec thunar                                                                                      # t for Thunar
-bindsym Print             exec maim -su ~/Pictures/$(date +%s).png
+bindsym Print             exec maim -s ~/Pictures/$(date +%s).png
 
 # Gaps
 bindsym $mod+d            gaps inner current set 15; gaps outer current set 15; border normal;
@@ -125,6 +142,8 @@ exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dropbox             # Meh
+exec --no-startup-id syncthing --no-browser
+exec --no-startup-id flameshot
 
 # Setting wallpaper
 exec --no-startup-id feh --bg-fill ~/.files/wall.jpg
@@ -144,6 +163,7 @@ assign[class="Termite"]            $ws2
 assign[class="jetbrains-phpstorm"] $ws3
 assign[class="jetbrains-idea"]     $ws3
 assign[class="Thunar"]             $ws4
+assign[class="Steam"]              $ws6
 assign[class="Slack"]              $ws8
 assign[class="Mattermost"]         $ws8
 assign[class="qTox"]               $ws8

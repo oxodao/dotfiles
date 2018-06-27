@@ -69,6 +69,9 @@ call plug#begin()
 	" Vim-surround
 	Plug 'tpope/vim-surround'
 
+    " The thing to move quick
+    Plug 'easymotion/vim-easymotion'
+
 	" Code completion (Requires Python3 enabled vim or neovim)
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

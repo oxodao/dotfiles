@@ -1,4 +1,5 @@
 # Requirements
+*Those are most likely the AUR package names for Arch*
 
 - lm-sensors
 - tmux
@@ -15,3 +16,11 @@
     blueman-applet
     udiskie
     fluxgui
+
+- rofi
+    rofi-calc
+    rofi-emoji
+
+- i3-lock [This fork](https://github.com/Lixxia/i3lock)
+    maim (screenshot for the lock background)
+    imagemagick (Blur the background image)
