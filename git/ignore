@@ -38,7 +38,7 @@ Icon?
 Thumbs.db
 
 *.lock
-package-lock.json
+!yarn.lock
 
 # IntelliJ / PhpStorm #
 #######################

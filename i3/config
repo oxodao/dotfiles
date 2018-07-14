@@ -91,7 +91,8 @@ bindsym $mod+Ctrl+2 move workspace to output right
 
 # Shortcut to switch to external output
 bindsym $mod+F9  exec ~/.screenlayout/internal.sh
-bindsym $mod+F10 exec ~/.screenlayout/dual_101.sh
+bindsym $mod+F10 exec ~/.screenlayout/mono_101.sh
+bindsym $mod+F11 exec ~/.screenlayout/dual_101.sh
 
 # Laptop sortcuts
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 20
@@ -169,6 +170,9 @@ assign[class="Mattermost"]         $ws8
 assign[class="qTox"]               $ws8
 assign[class="KeeWeb"]             $ws9
 assign[class="Spotify"]            $ws10
+
+
+for_window[instance="^Devtools"]   move to $ws4
 
 ## Design setup
 client.focused          $borderColor    $borderColor    $bgColor $borderColor    $borderColor

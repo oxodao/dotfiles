@@ -72,6 +72,16 @@ call plug#begin()
     " The thing to move quick
     Plug 'easymotion/vim-easymotion'
 
+    " Better f/F
+    Plug 'rhysd/clever-f.vim'
+
+    " Auto-opens diff & status window while comitting on git
+    Plug 'rhysd/committia.vim'
+
+    " Concats all text object
+    Plug 'kana/vim-textobj-user'
+    Plug 'rhysd/vim-textobj-anyblock'
+
 	" Code completion (Requires Python3 enabled vim or neovim)
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -155,6 +165,10 @@ nnoremap <S-k> :bnext<CR>
 nnoremap <S-x> :bdelete<CR>
 
 " Back one word to Shift W
+
+" Create a new line without going into insert
+nmap <C-o> o<Esc>
+nmap <C-S-o> O<Esc>
 
 " Prevent myself using arrow keys
 noremap <Up> <Nop>
