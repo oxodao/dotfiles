@@ -31,4 +31,7 @@ alias 'dcp'='docker-compose -f docker-compose.prod.yml exec php'
 alias 'g'='cd ~/Git'
 
 # Most importantly
-export EDITOR=vim
+export EDITOR=nvim
+
+echo "Memo: "
+cat ~/.memo

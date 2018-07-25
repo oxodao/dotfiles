@@ -12,5 +12,5 @@ def getip(inter):
         ipaddr = False;
     return ipaddr;
 
-ipEth = getip("enp3s0");
+ipEth = getip("enp2s0");
 print(ipEth);
