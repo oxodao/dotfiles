@@ -28,5 +28,5 @@ color20 = #839496
 color21 = #eee8d5
 
 [options]
-font = Hack 11
-font = Hack Nerd Font 11
+font = Hack 13
+font = Hack Nerd Font 13
