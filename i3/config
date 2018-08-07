@@ -88,6 +88,8 @@ bindsym $mod+Shift+agrave move container to workspace $ws10
 # Move the current workspace to other screen
 bindsym $mod+Ctrl+1 move workspace to output left
 bindsym $mod+Ctrl+2 move workspace to output right
+bindsym $mod+Ctrl+3 move workspace to output up
+bindsym $mod+Ctrl+4 move workspace to output down
 
 # Shortcut to switch to external output
 bindsym $mod+F9  exec ~/.screenlayout/internal.sh

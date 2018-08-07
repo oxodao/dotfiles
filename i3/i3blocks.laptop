@@ -1,6 +1,11 @@
 separator=false
 separator_block_width=5
 
+[charger]
+interval=2
+markup=pango
+command=~/.files/scripts/charging.sh
+
 [ram]
 interval=5
 markup=pango
