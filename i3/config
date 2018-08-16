@@ -172,6 +172,7 @@ assign[class="Mattermost"]         $ws8
 assign[class="qTox"]               $ws8
 assign[class="KeeWeb"]             $ws9
 assign[class="Spotify"]            $ws10
+assign[class="Veracrypt"]          $ws11
 
 
 for_window[instance="^Devtools"]   move to $ws4
