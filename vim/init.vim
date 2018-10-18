@@ -299,3 +299,6 @@ highlight ALEWarning ctermbg=DarkMagenta
 "" Colorizer
 " Automatically applies the color in those kind of files
 let g:colorizer_auto_filetype='css,html,twig'
+
+" Auto sudo write
+cmap w!! w !sudo tee > /dev/null %

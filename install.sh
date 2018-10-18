@@ -35,6 +35,8 @@ echo "From now on, there should no longer have errors"
 echo "Creating symlink for main folder"
 ln -s $(pwd)/files        ~/.files
 
+ln -s ~/.files/scripts/scan.sh /usr/bin/scanner
+
 echo "Linking machine specific stuff"
 mkdir $(pwd)/files/scripts/machine
 ln -s $(pwd)/files/scripts/ip.$MACHINE.py $(pwd)/files/scripts/machine/ip.py
