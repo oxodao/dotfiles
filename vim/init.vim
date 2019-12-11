@@ -20,18 +20,6 @@ call plug#begin()
 	" Automatically close your parenthesis, brackets and such
 	Plug 'Raimondi/delimitMate'
 
-	" Shows your vars and functions in a bar
-	" Uses ctags, same goal as the Overview window in eclipse
-	" Also it's PHP companion
-	Plug 'majutsushi/tagbar'
-	Plug 'vim-php/tagbar-phpctags.vim' " This one requires phpctags installed!
-
-	" Automatically generate getters and setters in PHP
-	Plug 'docteurklein/php-getter-setter.vim'
-
-	" Emmet for vim, Generate HTML tags with CSS syntax
-	Plug 'mattn/emmet-vim'
-
 	" Tree file finder and it's Git companion plugin
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -47,21 +35,12 @@ call plug#begin()
 	" Lots of languages support
 	Plug 'sheerun/vim-polyglot'
 
-    " JS (even though it's already in vim polyglot & everything for react
-    Plug 'pangloss/vim-javascript'
-    Plug 'mxw/vim-jsx'
-
-
-	Plug 'donRaphaco/neotex', { 'for': 'tex' }
+	" JS (even though it's already in vim polyglot & everything for react
+	Plug 'pangloss/vim-javascript'
+	Plug 'mxw/vim-jsx'
 
 	" Error checker (Like Syntastic)
 	Plug 'w0rp/ale'
-
-	" PHP Code completions
-	Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-
-	" JS Code completions
-	Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 	" Easy way of toggling comments
 	Plug 'tomtom/tcomment_vim'
@@ -69,28 +48,11 @@ call plug#begin()
 	" Vim-surround
 	Plug 'tpope/vim-surround'
 
-    " The thing to move quick
-    Plug 'easymotion/vim-easymotion'
+	" The thing to move quick
+	Plug 'easymotion/vim-easymotion'
 
-    " Better f/F
-    Plug 'rhysd/clever-f.vim'
-
-    " Auto-opens diff & status window while comitting on git
-    Plug 'rhysd/committia.vim'
-
-    " Concats all text object
-    Plug 'kana/vim-textobj-user'
-    Plug 'rhysd/vim-textobj-anyblock'
-
-	" Code completion (Requires Python3 enabled vim or neovim)
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-		Plug 'roxma/nvim-yarp'
-	else
-		Plug 'Shougo/deoplete.nvim'
-		Plug 'roxma/nvim-yarp'
-		Plug 'roxma/vim-hug-neovim-rpc'
-	endif
+	" Better f/F
+	Plug 'rhysd/clever-f.vim'
 
 call plug#end()
 
