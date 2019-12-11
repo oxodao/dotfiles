@@ -142,14 +142,11 @@ bindsym $mod+Right exec playerctl next
 exec --no-startup-id ~/.file/desktop_screen.sh
 
 # Some standard softs
-exec --no-startup-id fluxgui
 exec --no-startup-id udiskie -a -t -2
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id dropbox             # Meh
 exec --no-startup-id syncthing --no-browser
-exec --no-startup-id flameshot
 
 # Setting wallpaper
 exec --no-startup-id feh --bg-fill ~/.files/wall.jpg
