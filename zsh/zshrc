@@ -27,6 +27,9 @@ alias 'dc'='docker-compose'
 alias 'dcd'='docker-compose -f docker-compose.dev.yml exec php'
 alias 'dcp'='docker-compose -f docker-compose.prod.yml exec php'
 
+# Fixing ADB
+alias 'fixadb'='sudo adb kill-server && sudo adb devices'
+
 # Some folder shortcuts
 alias 'g'='cd ~/Git'
 
@@ -34,6 +37,7 @@ alias 'g'='cd ~/Git'
 export EDITOR=nvim
 
 export PATH=$PATH:/home/oxodao/Android/Sdk/platform-tools
+export GOPATH=$HOME/go
 
 echo "Memo: "
 cat ~/.memo
