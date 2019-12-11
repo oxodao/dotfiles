@@ -33,5 +33,7 @@ alias 'g'='cd ~/Git'
 # Most importantly
 export EDITOR=nvim
 
+export PATH=$PATH:/home/oxodao/Android/Sdk/platform-tools
+
 echo "Memo: "
 cat ~/.memo

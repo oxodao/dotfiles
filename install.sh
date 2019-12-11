@@ -19,6 +19,7 @@ echo "If there are errors here, don't worry. You may not have old configs"
 rm ~/.files
 mv ~/.config/termite/config ~/.config/termite/config_bak
 mv ~/.config/mpv/mpv.conf ~/.config/mpv/mpv.conf_
+mv ~/.config/mpv/input.conf ~/.config/mpv/input.conf_
 mv ~/.tmux.conf ~/.tmux.conf_bak
 mv ~/.config/nvim/init.vim ~/.config/nvim/init.vim_bak
 mv ~/.gitignore ~/.gitignore_bak
@@ -70,6 +71,7 @@ ln -s $(pwd)/tmux/tmux.conf ~/.tmux.conf
 
 echo "Installing mpv"
 ln -s $(pwd)/mpv/mpv.conf ~/.config/mpv/mpv.conf
+ln -s $(pwd)/mpv/input.conf ~/.config/mpv/input.conf
 
 echo "Installing Neovim"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
