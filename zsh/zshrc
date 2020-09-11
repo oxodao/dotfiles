@@ -36,8 +36,12 @@ alias 'g'='cd ~/Git'
 # Most importantly
 export EDITOR=nvim
 
-export PATH=$PATH:/home/oxodao/Android/Sdk/platform-tools
+export PATH=$PATH:/home/oxodao/Android/Sdk/platform-tools:/home/oxodao/.yarn/bin/
 export GOPATH=$HOME/go
+export CGO_ENABLED=1
 
 echo "Memo: "
 cat ~/.memo
+
+alias "syncprogress"="watch -d grep -e Dirty: -e Writeback: /proc/meminfo"
+export PATH="$HOME/.symfony/bin:$PATH"

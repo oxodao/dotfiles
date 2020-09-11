@@ -124,6 +124,7 @@ bindsym $mod+y            workspace $ws1;  exec firefox "https://youtube.com/"  
 bindsym $mod+m            workspace $ws10; exec python ~/.files/scripts/ror.py "Spotify" "spotify"                                          # m for Music
 bindsym $mod+p            workspace $ws9;  exec keeweb                                                                                      # p for Password
 bindsym $mod+t            workspace $ws4;  exec thunar                                                                                      # t for Thunar
+bindsym $mod+e            workspace $ws4;  exec thunar                                                                                      # e for Thunar
 bindsym Print             exec maim -s ~/Pictures/$(date +%s).png
 
 # Gaps
@@ -147,12 +148,11 @@ exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id syncthing --no-browser
+exec --no-startup-id xsettingsd
+exec --no-startup-id caprine
 
 # Setting wallpaper
 exec --no-startup-id feh --bg-fill ~/.files/wall.jpg
-
-# Swapping escape and caps lock
-exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape"
 
 # Don't go to sleep
 exec --no-startup-id xset s off -dpms
@@ -177,6 +177,7 @@ assign[class="Vmware"]             $ws12
 
 for_window[instance="^Devtools"]   move to $ws4
 for_window[class="Vmware"]         border none
+for_window[class="Notification Microsoft Teams"] floating enable
 
 ## Design setup
 client.focused          $borderColor    $borderColor    $bgColor $borderColor    $borderColor
