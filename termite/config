@@ -2,7 +2,7 @@
 foreground      = #D8B5E3
 foreground_bold = #A643B6
 cursor          = #1E5DA1
-background      = #030A1C
+background      = rgba(3, 10, 28, 0.9)
 
 color0  = #01040D
 color1  = #dc322f
