@@ -1,0 +1,56 @@
+# Custom files
+*.custom
+*.custom.*
+.configured
+
+# Dependencies
+*/node_modules/
+node_modules/
+*/vendor/
+vendor/
+
+*/.next/
+.next/
+
+# IDEs stuff
+.idea/
+.vscode
+.expo/
+
+# Generated gitignore or smth like that
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+*.swp
+*.swo
+*~
+
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+*.log
+*.sqlite
+
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+
+env
+env.prod
+
+*/var/
+*/public/
+
+.envrc

@@ -1,0 +1,32 @@
+datetime:
+  i3:
+    prefix: 
+    format: 01/02/06 <b>15:04:05</b>
+  tmux:
+    format: 15:04:05
+
+ram:
+  i3:
+    format: "%used% / %total% %unit%"
+    unit: Go
+    rounding: 2
+  tmux:
+    prefix: 🐏
+    format: "%used% / %total% %unit%"
+    unit: Go
+    rounding: 2
+
+ip:
+  tmux:
+    interface: ['enp37s0']
+    no_ip: No address
+
+music:
+  tmux:
+    prefix: ♫
+    format: "%xesam:title% - %xesam:artist%"
+    no_player: "-"
+    trim_at: 20
+custom:
+  test:
+    command: curl wttr.in/Reims?format=%t

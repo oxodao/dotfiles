@@ -1,0 +1,21 @@
+[user]
+    name = Nathan JANCZEWSKI
+    email = nathan@janczewski.fr
+
+[core]
+	excludesfile = ~/.gitignore
+
+[commit]
+	gpgsign = false
+
+[rerere]
+	enabled = true
+
+[init]
+	defaultBranch = master
+
+[color "status"]
+  added = green bold
+  changed = red bold strike
+  untracked = cyan
+  branch = yellow black bold ul

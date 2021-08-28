@@ -1,0 +1,4 @@
+#!/bin/bash
+# docker clear logs
+# @TODO: varargs for the arguments to clear multiple containers
+sudo truncate -s 0 $(docker inspect --format='{{.LogPath}}' $1)
