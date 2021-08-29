@@ -7,6 +7,7 @@ touch ~/.zshrc.custom
 mkdir -p ~/.config
 ln -s $PWD/resources ~/.Xresources
 ln -s $PWD/termite ~/.config/termite
+ln -s $PWD/scripts ~/.config/scripts
 ln -s $PWD/zshrc ~/.zshrc
 ln -s $PWD/zsh ~/.config/zsh
 ln -s $PWD/tmux.conf ~/.tmux.conf
