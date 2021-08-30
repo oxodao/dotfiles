@@ -21,4 +21,9 @@ include "~/.config/i3/assigned_workspaces.conf"
 
 include "~/.config/i3/startup.conf"
 
+
+set $size_bar 27
+set $config_bar ~/.config/i3/i3blocks.conf
+include "~/.config/i3/custom.`hostname`.conf"
+
 include "~/.config/i3/theme.conf"

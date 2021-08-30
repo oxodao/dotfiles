@@ -27,6 +27,21 @@ music:
     format: "%xesam:title% - %xesam:artist%"
     no_player: "-"
     trim_at: 20
+
 custom:
   test:
     command: curl wttr.in/Reims?format=%t
+
+battery:
+  i3:
+    battery_name: BAT0
+    format: "%status_text% %percentage%%"
+    charging_text: 🔌
+    discharging_text: 🔋
+
+uptime:
+  tmux:
+    two_digit_hours: true
+    format: "%hours%h%minutes%"
+    no_hours_format: "%minutes% minutes"
+    no_minutes_format: "%seconds% seconds"

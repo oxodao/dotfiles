@@ -6,6 +6,7 @@ touch ~/.memo
 touch ~/.zshrc.custom
 mkdir -p ~/.config
 ln -s $PWD/resources ~/.Xresources
+ln -s $PWD/resources.`hostname` ~/.Xresources.`hostname`
 ln -s $PWD/termite ~/.config/termite
 ln -s $PWD/scripts ~/.config/scripts
 ln -s $PWD/zshrc ~/.zshrc
