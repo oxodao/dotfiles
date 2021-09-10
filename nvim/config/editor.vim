@@ -11,7 +11,6 @@ set splitbelow
 set conceallevel=1
 set linebreak
 
-
 " Allows switching buffer without saving
 set hidden
 

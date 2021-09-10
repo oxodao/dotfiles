@@ -10,14 +10,11 @@ call plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
-    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'Raimondi/delimitMate'
-    Plug 'kyazdani42/nvim-web-devicons'
     Plug 'chrisbra/Colorizer'
     Plug 'sheerun/vim-polyglot'
     Plug 'elzr/vim-json', { 'for': 'json' }
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'editorconfig/editorconfig-vim'
     Plug 'w0rp/ale'
     Plug 'tomtom/tcomment_vim'
     Plug 'tpope/vim-surround'
@@ -29,14 +26,42 @@ call plug#begin()
     Plug 'nvim-telescope/telescope.nvim'
 
     Plug 'nvim-lua/completion-nvim'
+
+    " Lets get a real IDE
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'kyazdani42/nvim-tree.lua'
+
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'kabouzeid/nvim-lspinstall'
+
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/cmp-buffer'
+
+    Plug 'editorconfig/editorconfig-vim'
 call plug#end()
+
+""""""""""""""""""""""""""
+"" Required lsp servers ""
+""""""""""""""""""""""""""
+
+" :LspInstall html
+" :LspInstall css
+" :LspInstall json
+" :LspInstall typescript
+" :LspInstall python
+" :LspInstall go
+" :LspInstall php
 
 source <sfile>:h/plugins/airline.vim
 source <sfile>:h/plugins/ale.vim
 source <sfile>:h/plugins/colorizer.vim
-source <sfile>:h/plugins/ctrl-p.vim
 source <sfile>:h/plugins/deoplete.vim
 source <sfile>:h/plugins/telescope.vim
+source <sfile>:h/plugins/nvim-tree.vim
+
+source <sfile>:h/plugins/lsp.vim
+source <sfile>:h/plugins/nvim-cmp.vim
 
 autocmd BufEnter * lua require'completion'.on_attach()
 " Use <Tab> and <S-Tab> to navigate through popup menu

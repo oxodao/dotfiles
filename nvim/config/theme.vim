@@ -12,4 +12,3 @@ colorscheme dracula
 hi CursorLine   cterm=NONE ctermbg=0
 hi CursorColumn cterm=NONE ctermbg=0
 
-
