@@ -1,0 +1,6 @@
+battery:
+  i3:
+    battery_name: BAT0
+    format: "%status_text% %percentage%%"
+    charging_text: 🔌
+    discharging_text: 🔋

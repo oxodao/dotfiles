@@ -11,3 +11,4 @@ rofi.levenshtein-sort: false
 rofi.run-shell-command: {terminal} -e {cmd}
 rofi.run-command: bash -c {cmd}
 xterm*font: *-fixed-*-*-*-18-*
+
