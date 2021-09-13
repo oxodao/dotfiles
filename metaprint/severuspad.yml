@@ -4,3 +4,14 @@ battery:
     format: "%status_text% %percentage%%"
     charging_text: 🔌
     discharging_text: 🔋
+
+temperature:
+  i3_cpu:
+    prefix: 🔥
+    json_path: $.k10temp-pci-00c3.Tctl.temp1_input
+    suffix: °C
+
+ip:
+  tmux:
+    interface: ['wlp1s0', 'enp4s0f4u2']
+    no_ip: No address
