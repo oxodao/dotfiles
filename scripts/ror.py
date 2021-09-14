@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import json
 import subprocess
 import sys
@@ -5,7 +6,8 @@ import sys
 def get_output(cmd):
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     out = process.communicate()[0].decode()
-    process.stdout.close()
+    if process.stdout is not None:
+        process.stdout.close()
     return out
 
 def get_tree():
@@ -38,20 +40,24 @@ def get_matches():
 
 def main():
     matches = get_matches()
+
     # Sort the list by window IDs
     matches = [(match['window'], match) for match in matches]
     matches.sort()
-    matches = [match for (key, match) in matches]
+    matches = [match for (_, match) in matches]
+
     # Iterate over the matches to find the first focused one, then focus the
     # next one.
     for ind, match in enumerate(matches):
         if match['focused'] == True:
             subprocess.call(["i3-msg", "[id=%s] focus" % matches[(ind+1)%len(matches)]['window']])
             return
+
     # No focused match was found, so focus the first one
     if len(matches) > 0:
             subprocess.call(["i3-msg", "[id=%s] focus" % matches[0]['window']])
             return
+
     # No matches found, launch program
     subprocess.call(["i3-msg", "exec", sys.argv[2]])
 

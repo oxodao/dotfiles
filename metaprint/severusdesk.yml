@@ -1,6 +1,6 @@
 temperature:
   i3_cpu:
-    prefix: 🔥🧠
+    prefix: 🧠
     json_path: $.k10temp-pci-00c3.Tctl.temp1_input
     suffix: °C
   i3_gpu:

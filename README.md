@@ -9,6 +9,7 @@ ln -s $PWD/resources ~/.Xresources
 ln -s $PWD/resources.`hostname` ~/.Xresources.`hostname`
 ln -s $PWD/termite ~/.config/termite
 ln -s $PWD/scripts ~/.config/scripts
+ln -s $PWD/wall.png ~/.config/wall.png
 ln -s $PWD/zshrc ~/.zshrc
 ln -s $PWD/zsh ~/.config/zsh
 ln -s $PWD/tmux.conf ~/.tmux.conf
@@ -25,6 +26,8 @@ ln -s $PWD/gitignore ~/.gitignore
 # Customizations
 This setup requires a ~/.zshrc.custom that lets you customize the setup for the current device
 
+This also requires a ~/.config/i3/custom.`hostname`.conf file (can be empty).
+
 ## Git
 Change the email per machine (i.e. work machine vs home machine)
 `~/.zshrc.custom`
@@ -40,7 +43,7 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 // rofi-emoji or rofimoji IDK the correct one
 // I know termite is obselete, I'm in the process of switching to Alacritty. Come back in a few years.
 ```sh
-yay -Sy rofi rofi-calc xdotool exa direnv dunst termite lm_sensors
+yay -Sy rofi rofi-calc xdotool exa direnv dunst termite lm_sensors inetutils
 ```
 
 ## Other things that I can't include properly
