@@ -25,6 +25,7 @@ alias 'fixadb'='sudo adb kill-server && sudo adb devices'
 
 # Some folder shortcuts
 alias 'g'='cd ~/Git'
+alias 'sf'='cd ~/Git/Spacefoot'
 
 # Useful shortcuts
 alias "syncprogress"="watch -d grep -e Dirty: -e Writeback: /proc/meminfo"

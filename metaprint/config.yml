@@ -12,13 +12,15 @@ ram:
     rounding: 2
   tmux:
     prefix: 🐏
+    suffix: " "
     format: "%used% / %total% %unit%"
     unit: Go
     rounding: 2
 
 music:
   tmux:
-    prefix: ♫
+    prefix: "♫ "
+    suffix: " "
     format: "%xesam:title% - %xesam:artist%"
     no_player: "-"
     trim_at: 20

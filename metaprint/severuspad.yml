@@ -4,11 +4,13 @@ battery:
     format: "%status_text% %percentage%%"
     charging_text: 🔌
     discharging_text: 🔋
+    prefix: "  "
 
 temperature:
   i3_cpu:
     prefix: 🔥
     json_path: $.k10temp-pci-00c3.Tctl.temp1_input
+    rounding: 0
     suffix: °C
 
 ip:
