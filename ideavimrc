@@ -1,0 +1,15 @@
+set nu rnu
+set ignorecase
+set ideajoin
+set smartcase
+set so=10
+set surround
+set clipboard+=unnamed
+let mapleader = " "
+
+" Close & Re-open tab
+nmap <leader>q :action CloseContent<cr>
+nmap <leader>Q :action ReopenClosedTab<cr>
+
+set highlightedyank
+
