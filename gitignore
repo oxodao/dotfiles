@@ -54,3 +54,5 @@ env.prod
 */public/
 
 .envrc
+
+.composer

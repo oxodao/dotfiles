@@ -1,0 +1,12 @@
+configuration {
+  font:               "Hack Nerd Font 16";
+  modi:               "run,emoji:/usr/bin/rofimoji,calc";
+
+  location:           6;
+  yoffset:            -105;
+
+  show-icons:         true;
+  icon-theme:         "Papirus";
+}
+
+@import "theme.rasi"

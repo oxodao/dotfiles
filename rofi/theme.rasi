@@ -1,0 +1,52 @@
+*
+{
+    background: #0C1530;
+    foreground: #D8B5E3;
+    border: #1A2546;
+}
+
+window {
+    background-color: @background;
+    text-color: @foreground;
+    border: 5px;
+    border-color: @border;
+
+    height: 410px;
+}
+
+listview {
+    columns: 2;
+    spacing: 15px;
+    cycle: false;
+    layout: vertical;
+    margin: 0 20px 20px 20px;
+    border: 0;
+}
+
+inputbar {
+    margin: 10px;
+}
+
+element-icon {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    size: 48px;
+}
+
+element-text {
+    vertical-align: 0.5;
+    padding: 0 0 0 20px;
+}
+
+element selected {
+    background-color: #FFFFFF;
+    text-color: @foreground;
+    border: 0 0 3px 0;
+    border-color: @foreground;
+}
+
+element alternate, element-text alternate, element-icon alternate {
+    background-color: @background;
+    border: 0;
+}
+

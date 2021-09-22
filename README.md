@@ -17,6 +17,7 @@ ln -s $PWD/tmux ~/.config/tmux
 ln -s $PWD/nvim ~/.config/nvim
 ln -s $PWD/mpv ~/.config/mpv
 ln -s $PWD/i3 ~/.config/i3
+ln -s $PWD/rofi ~/.config/rofi
 ln -s $PWD/dunst ~/.config/dunst
 ln -s $PWD/metaprint ~/.config/metaprint
 ln -s $PWD/gitconfig ~/.gitconfig
@@ -40,10 +41,9 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 
 ## Packages required
 
-// rofi-emoji or rofimoji IDK the correct one
 // I know termite is obselete, I'm in the process of switching to Alacritty. Come back in a few years.
 ```sh
-yay -Sy rofi rofi-calc xdotool exa direnv dunst termite lm_sensors inetutils
+yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst termite lm_sensors inetutils
 ```
 
 ## Other things that I can't include properly
