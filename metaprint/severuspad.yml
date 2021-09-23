@@ -11,7 +11,8 @@ temperature:
     prefix: 🔥
     json_path: $.k10temp-pci-00c3.Tctl.temp1_input
     rounding: 0
-    suffix: °C
+    unit: "°C"
+    suffix: " "
 
 ip:
   tmux:

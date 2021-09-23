@@ -47,6 +47,7 @@ element selected {
 
 element alternate, element-text alternate, element-icon alternate {
     background-color: @background;
-    border: 0;
+    border: 0px;
+    border-color: @background;
 }
 

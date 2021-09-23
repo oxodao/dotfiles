@@ -29,7 +29,6 @@ pulseaudio:
   i3_output:
     type: sink
     prefix: "  "
-    sufix: "  "
     format: "🔊 %percentage%%"
     muted_format: "🔇 %percentage%%"
 
@@ -37,3 +36,8 @@ pulseaudio:
     type: source
     format: "%percentage%%"
     muted_format: "🔇 %percentage%%"
+
+custom:
+  updates:
+    prefix: ⚙️
+    command: sudo pacman -Syy > /dev/null && pacman -Qu | wc -l
