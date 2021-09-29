@@ -13,3 +13,7 @@ nmap <leader>Q :action ReopenClosedTab<cr>
 
 set highlightedyank
 
+nnoremap <C-M-d> <C-x>
+vnoremap <C-M-d> <C-x> gv
+nnoremap <C-M-i> <C-a>
+vnoremap <C-M-i> <C-a> gv

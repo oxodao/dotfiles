@@ -16,6 +16,7 @@
 
 [color "status"]
   added = green bold
-  changed = red bold strike
+  changed = yellow bold
+  deleted = red bold strike
   untracked = cyan
   branch = yellow black bold ul

@@ -41,3 +41,8 @@ xnoremap <C-H> :s/
 " Change current working directory locally and print cwd after that,
 " see https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
 nnoremap <silent> <leader>cd :<C-U>lcd %:p:h<CR>:pwd<CR>
+
+nnoremap <C-M-d> <C-x>
+vnoremap <C-M-d> <C-x> gv
+nnoremap <C-M-i> <C-a>
+vnoremap <C-M-i> <C-a> gv

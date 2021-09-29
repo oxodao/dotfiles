@@ -54,5 +54,6 @@ env.prod
 */public/
 
 .envrc
-
 .composer
+auth.json
+.phpunit.result.cache

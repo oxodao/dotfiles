@@ -43,7 +43,7 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 
 // I know termite is obselete, I'm in the process of switching to Alacritty. Come back in a few years.
 ```sh
-yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst termite lm_sensors inetutils
+yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst termite lm_sensors inetutils scrot i3lock
 ```
 
 ## Other things that I can't include properly
