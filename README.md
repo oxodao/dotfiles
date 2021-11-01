@@ -22,6 +22,11 @@ ln -s $PWD/dunst ~/.config/dunst
 ln -s $PWD/metaprint ~/.config/metaprint
 ln -s $PWD/gitconfig ~/.gitconfig
 ln -s $PWD/gitignore ~/.gitignore
+ln -s $PWD/user-dirs.dirs ~/.config/user-dirs.dirs
+ln -s $PWD/systemd_user ~/.config/systemd
+mkdir -p ~/Documents ~/Images ~/Musiques ~/Videos ~/Téléchargements
+xdg-user-dirs-update
+systemctl enable --now --user ssh-agent
 ```
 
 # Customizations
@@ -43,7 +48,7 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 
 // I know termite is obselete, I'm in the process of switching to Alacritty. Come back in a few years.
 ```sh
-yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst termite lm_sensors inetutils scrot i3lock
+yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst termite lm_sensors inetutils scrot i3lock playerctl
 ```
 
 ## Other things that I can't include properly
