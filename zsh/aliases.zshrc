@@ -14,8 +14,10 @@ alias 'dka'='docker kill $(docker ps -q)'
 
 # Those envvar are loaded on a per-project basis with the help of direnv
 alias 'd'='docker-compose exec $PHP_CONTAINER'
+alias 'dr'='docker-compose run $PHP_CONTAINER'
 alias 'n'='docker-compose exec $NODE_CONTAINER'
 alias 's'='docker-compose exec $PHP_CONTAINER bin/console '
+alias 'sr'='docker-compose run $PHP_CONTAINER bin/console '
 
 alias 'dc'='docker-compose'
 alias composer='docker run --rm --interactive --tty --volume `pwd`:/app --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer'
@@ -25,7 +27,7 @@ alias 'fixadb'='sudo adb kill-server && sudo adb devices'
 
 # Some folder shortcuts
 alias 'g'='cd ~/Git'
-alias 'sf'='cd ~/Git/Spacefoot'
+alias 'sf'='cd ~/Git/Spacefoot/ebiz'
 
 # Useful shortcuts
 alias "syncprogress"="watch -d grep -e Dirty: -e Writeback: /proc/meminfo"

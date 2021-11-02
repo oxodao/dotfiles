@@ -57,3 +57,6 @@ env.prod
 .composer
 auth.json
 .phpunit.result.cache
+
+*.gitignore
+.initialized

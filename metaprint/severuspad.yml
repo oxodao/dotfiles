@@ -19,6 +19,7 @@ ip:
     interface: ['wlp1s0', 'enp4s0f4u2']
     no_ip: No address
 
-brightness:
+backlight:
   i3:
+    prefix: 
     device: amdgpu_bl0
