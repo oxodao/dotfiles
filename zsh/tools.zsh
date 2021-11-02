@@ -1,3 +1,5 @@
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
 # Maybe re-do this myself to use jq with it
 # Also tools to do: url decoder / encoder
 
