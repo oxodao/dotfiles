@@ -58,5 +58,7 @@ env.prod
 auth.json
 .phpunit.result.cache
 
-*.gitignore
+*.gitignore.*
 .initialized
+
+*.iml
