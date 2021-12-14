@@ -12,3 +12,5 @@ alias 'dr'='docker-compose run --rm $PHP_CONTAINER'
 alias 'sr'='docker-compose run --rm $PHP_CONTAINER bin/console '
 
 
+# that thing there 
+alias k=kubectl

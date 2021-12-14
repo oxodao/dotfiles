@@ -24,3 +24,4 @@ export NVM_DIR="$HOME/.nvm"
 
 #autocmd BufNewFile,BufRead *.zshrc set syntax=zsh
 
+export DOCKER_BUILDKIT=1

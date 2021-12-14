@@ -1,2 +1,2 @@
 alias 'g'='cd ~/Git'
-alias 'sf'='cd ~/Git/Spacefoot/ebiz'
+alias 'w'='cd ~/Git/Spacefoot/ebiz'
