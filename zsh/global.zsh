@@ -12,6 +12,8 @@ source $HOME/.config/zsh/python.zsh
 source $HOME/.config/zsh/direnv.zsh
 source $HOME/.config/zsh/tools.zsh
 
+# Docker
+export DOCKER_BUILDKIT=1
 
 # At the end so it overrides the default setup
 if [ -f ~/.zshrc.custom ]; then

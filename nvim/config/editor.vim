@@ -31,3 +31,5 @@ set tabstop=4
 set shiftwidth=4
 
 set incsearch
+
+let b:match_words = '\s*#\s*region.*$:\s*#\s*endregion'

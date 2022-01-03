@@ -6,6 +6,8 @@
 " Oxodao's neovim config
 " Only tested & fully working on Linux / neovim 0.5+
 
+set termguicolors
+
 source <sfile>:h/config/autocommands.vim
 
 source <sfile>:h/config/commands.vim
@@ -22,3 +24,4 @@ source <sfile>:h/config/abbreviations.vim
 source <sfile>:h/config/netrw.vim
 
 source <sfile>:h/config/experimental.vim
+

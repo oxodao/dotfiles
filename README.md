@@ -4,8 +4,9 @@ N.B. I am using my [metaprint](https://github.com/oxodao/metaprint) software so 
 ```sh
 touch ~/.memo
 touch ~/.zshrc.custom
-mkdir -p ~/.config
+mkdir -p ~/.config ~/.config/alacritty ~/.config/nvim
 ln -s $PWD/resources ~/.Xresources
+ln -s $PWD/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -s $PWD/resources.`hostname` ~/.Xresources.`hostname`
 ln -s $PWD/termite ~/.config/termite
 ln -s $PWD/scripts ~/.config/scripts
