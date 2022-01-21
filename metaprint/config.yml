@@ -40,4 +40,5 @@ pulseaudio:
 custom:
   updates:
     prefix: ⚙️
-    command: sudo pacman -Syy > /dev/null && pacman -Qu | wc -l
+    #sudo pacman -Syy > /dev/null &&
+    command: pacman -Qu | wc -l

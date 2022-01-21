@@ -62,3 +62,7 @@ auth.json
 .initialized
 
 *.iml
+
+input2.csv
+
+ldlc*
