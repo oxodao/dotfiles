@@ -27,5 +27,3 @@ set $config_bar ~/.config/i3/i3blocks.conf
 include "~/.config/i3/custom.`hostname`.conf"
 
 include "~/.config/i3/theme.conf"
-
-bindsym Control+Mod1+Tab exec xdotool click --repeat 100 --delay 50 1

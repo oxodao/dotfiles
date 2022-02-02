@@ -1,6 +1,6 @@
 configuration {
   font:               "Hack Nerd Font 16";
-  modi:               "run,emoji:/usr/bin/rofimoji,calc";
+  modi:               "run,emoji,calc";
 
   location:           6;
   yoffset:            -105;

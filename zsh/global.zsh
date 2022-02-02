@@ -8,6 +8,7 @@ source $HOME/.config/zsh/keyring.zsh
 
 # Languages specific
 source $HOME/.config/zsh/python.zsh
+source $HOME/.config/zsh/flutter.zsh
 
 source $HOME/.config/zsh/direnv.zsh
 source $HOME/.config/zsh/tools.zsh
