@@ -66,3 +66,5 @@ auth.json
 input2.csv
 
 ldlc*
+settings.py.dev
+settings.py.prod
