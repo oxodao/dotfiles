@@ -38,16 +38,15 @@ element-text {
     padding: 0 0 0 20px;
 }
 
-element selected {
-    background-color: #FFFFFF;
-    text-color: @foreground;
-    border: 0 0 3px 0;
-    border-color: @foreground;
-}
-
-element alternate, element-text alternate, element-icon alternate {
+element.alternate, element-text.alternate, element-icon.alternate {
     background-color: @background;
-    border: 0px;
+    border: 1px;
     border-color: @background;
 }
 
+element selected {
+    background-color: #FF0000;
+    text-color: @foreground;
+    border: 0 0 2px 0;
+    border-color: @foreground;
+}
