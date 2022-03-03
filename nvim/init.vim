@@ -21,7 +21,5 @@ source <sfile>:h/config/languages.vim
 
 source <sfile>:h/config/abbreviations.vim
 
-source <sfile>:h/config/netrw.vim
-
 source <sfile>:h/config/experimental.vim
 
