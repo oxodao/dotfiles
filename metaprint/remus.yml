@@ -1,0 +1,25 @@
+battery:
+  i3:
+    battery_name: BAT1
+    format: "%status_text% %percentage%%"
+    charging_text: 🔌
+    discharging_text: 🔋
+    prefix: "  "
+
+temperature:
+  i3_cpu:
+    prefix: 🔥
+    json_path: "$.coretemp-isa-0000.Package id 0.temp1_input"
+    rounding: 0
+    unit: "°C"
+    suffix: " "
+
+ip:
+  tmux:
+    interface: ['wlan0', 'enp4s0f4u2']
+    no_ip: No address
+
+backlight:
+  i3:
+    prefix: 
+    device: intel_backlight
