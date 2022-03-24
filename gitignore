@@ -34,6 +34,7 @@ vendor/
 *.gz
 *.iso
 *.jar
+!/gradle/wrapper/*.jar
 *.rar
 *.tar
 *.zip
