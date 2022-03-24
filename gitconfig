@@ -3,20 +3,17 @@
     email = nathan@janczewski.fr
 
 [core]
-	excludesfile = ~/.gitignore
-
-[commit]
-	gpgsign = false
+    excludesfile = ~/.gitignore
 
 [rerere]
-	enabled = true
+    enabled = true
 
 [init]
-	defaultBranch = master
+    defaultBranch = master
 
 [color "status"]
-  added = green bold
-  changed = yellow bold
-  deleted = red bold strike
-  untracked = cyan
-  branch = yellow black bold ul
+    added = green bold
+    changed = yellow bold
+    deleted = red bold strike
+    untracked = cyan
+    branch = yellow black bold ul
