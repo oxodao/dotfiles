@@ -3,6 +3,7 @@
     email = nathan@janczewski.fr
 
 [core]
+    pager = delta
     excludesfile = ~/.gitignore
 
 [rerere]
@@ -17,3 +18,15 @@
     deleted = red bold strike
     untracked = cyan
     branch = yellow black bold ul
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
