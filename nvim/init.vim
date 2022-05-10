@@ -23,3 +23,6 @@ source <sfile>:h/config/abbreviations.vim
 
 source <sfile>:h/config/experimental.vim
 
+
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax

@@ -60,3 +60,11 @@ augroup highlight_yank
   au TextYankPost * silent! lua vim.highlight.on_yank{higroup="YankColor", timeout=300, on_visual=false}
 augroup END
 
+" XML kind type should be foldable
+augroup XML
+    autocmd!
+    autocmd FileType xml,ui,xhtml,html let g:xml_syntax_folding=1
+    autocmd FileType xml,ui,xhtml,html setlocal foldmethod=syntax
+    autocmd FileType xm,ui,xhtml,htmll :syntax on
+    autocmd FileType xml,ui,xhtml,html :%foldopen!
+augroup END

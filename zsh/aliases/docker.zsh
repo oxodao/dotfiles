@@ -1,5 +1,6 @@
 # docker kill all
 alias 'dka'='docker kill $(docker ps -q)'
+alias 'fckdc'='docker rm -f $(docker ps -a -q)'
 
 alias 'dc'='docker compose'
 
