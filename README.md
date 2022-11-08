@@ -49,11 +49,12 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 
 // I know termite is obselete, I'm in the process of switching to Alacritty. Come back in a few years.
 ```sh
-yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst termite lm_sensors inetutils scrot i3lock playerctl
+yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst alacritty lm_sensors inetutils scrot i3lock playerctl metaprint
 ```
+
+@TODO: Add in ansible-arch-setup: bat, visidata
 
 ## Other things that I can't include properly
 
-- i3-gaps requires to be built by hand on the "include" branch
 - Spicetify with theme Phosphoria
 - BetterDiscord

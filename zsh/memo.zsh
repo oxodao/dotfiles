@@ -1,6 +1,6 @@
 # Finally my simple memo
 echo "Memo: "
-cat ~/.memo
+/usr/bin/cat ~/.memo
 
-alias m="cat ~/.memo"
+alias m="/usr/bin/cat ~/.memo"
 alias memo="nvim ~/.memo"

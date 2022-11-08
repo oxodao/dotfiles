@@ -1,0 +1,13 @@
+# vim: syntax=python
+import plugins
+
+# Use spacebar as a custom command prefix, and shuffle other bindings around to accommodate that.
+BaseSheet.unbindkey(' ')
+vd.allPrefixes.append(' ')
+vd.bindkeys[':'] = {'BaseSheet': 'exec-longname'}
+BaseSheet.bindkey(' ;', 'split-col')
+
+vd.options.vpager_cmd = '/usr/bin/env bat --paging=always'
+
+# Space + Enter => view in bat
+BaseSheet.bindkey(ALT+"Enter", "open-cell-pager")
