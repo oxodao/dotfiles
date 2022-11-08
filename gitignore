@@ -74,3 +74,5 @@ fr.eu_browse_tree_mappings._TTH_.csv
 
 *.db
 *.db-journal
+
+*.tmp.*

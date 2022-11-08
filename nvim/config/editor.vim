@@ -31,5 +31,7 @@ set tabstop=4
 set shiftwidth=4
 
 set incsearch
+setlocal foldmethod=syntax
+set nofoldenable
 
 let b:match_words = '\s*#\s*region.*$:\s*#\s*endregion'

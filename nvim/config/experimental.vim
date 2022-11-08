@@ -5,7 +5,7 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Toggle invisble chars
-nmap <leader>l :set list!<CR>
+nmap <leader>l :set list! nu! rnu!<CR>
 
 " Change text without putting it into the vim register,
 " see https://stackoverflow.com/q/54255/6064933

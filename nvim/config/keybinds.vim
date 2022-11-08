@@ -3,23 +3,27 @@ nnoremap <S-j> :bprev<CR>
 nnoremap <S-k> :bnext<CR>
 nnoremap <S-x> :bdelete<CR>
 
+nnoremap <S-A-j> :join<CR>
+nnoremap <S-A-k> k:join<CR>
+
 " Create a new line without going into normal mode
 nmap <C-o> o<Esc>
 nmap <C-S-o> O<Esc>
 
 " Easily switch & move between windows
-nmap <silent> <A-k> :wincmd k<CR>
-nmap <silent> <A-j> :wincmd j<CR>
-nmap <silent> <A-h> :wincmd h<CR>
-nmap <silent> <A-l> :wincmd l<CR>
+" @TODO: find better mappings
+"nmap <silent> <A-k> :wincmd k<CR>
+"nmap <silent> <A-j> :wincmd j<CR>
+"nmap <silent> <A-h> :wincmd h<CR>
+"nmap <silent> <A-l> :wincmd l<CR>
 
-nmap <silent> <A-K> :wincmd K<CR>
-nmap <silent> <A-J> :wincmd J<CR>
-nmap <silent> <A-H> :wincmd H<CR>
-nmap <silent> <A-L> :wincmd L<CR>
+"nmap <silent> <A-K> :wincmd K<CR>
+"nmap <silent> <A-J> :wincmd J<CR>
+"nmap <silent> <A-H> :wincmd H<CR>
+"nmap <silent> <A-L> :wincmd L<CR>
 
-nmap <silent> <C-A-j> :wincmd -<CR>
-nmap <silent> <C-A-k> :wincmd +<CR>
+"nmap <silent> <C-A-j> :wincmd -<CR>
+"nmap <silent> <C-A-k> :wincmd +<CR>
 
 " Changes the leader key to space
 let mapleader="\<Space>"
