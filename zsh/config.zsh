@@ -9,7 +9,7 @@ plugins=(git globalias virtualenv) # zsh-autosuggestions
 source $ZSH/oh-my-zsh.sh
 
 # Prevent some values from being extended
-GLOBALIAS_FILTER_VALUES=(grep ls)
+GLOBALIAS_FILTER_VALUES=(grep ls cat)
 
 #bindkey '^ ' autosuggest-accept
 

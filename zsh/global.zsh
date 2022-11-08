@@ -20,5 +20,5 @@ export DOCKER_BUILDKIT=1
 if [ -f ~/.zshrc.custom ]; then
     source ~/.zshrc.custom
 else
-    print "Could not find the machine specific zshrc (~/.zshrc.custom)"
+    print "Could not find the local override zshrc (~/.zshrc.custom)"
 fi

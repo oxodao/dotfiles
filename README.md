@@ -47,7 +47,6 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 
 ## Packages required
 
-// I know termite is obselete, I'm in the process of switching to Alacritty. Come back in a few years.
 ```sh
 yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst alacritty lm_sensors inetutils scrot i3lock playerctl metaprint
 ```
