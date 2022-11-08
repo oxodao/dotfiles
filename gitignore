@@ -77,3 +77,4 @@ fr.eu_browse_tree_mappings._TTH_.csv
 
 *.tmp.*
 __pycache__/
+.~*
