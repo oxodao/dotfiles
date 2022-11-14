@@ -52,7 +52,6 @@ env
 env.prod
 
 */var/
-*/public/
 
 .envrc
 .composer
@@ -78,3 +77,5 @@ fr.eu_browse_tree_mappings._TTH_.csv
 *.tmp.*
 __pycache__/
 .~*
+*.gitignore
+*.gitignore/
