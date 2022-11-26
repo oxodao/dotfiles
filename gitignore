@@ -79,3 +79,5 @@ __pycache__/
 .~*
 *.gitignore
 *.gitignore/
+
+backend/core/custom_eav_migrations/
