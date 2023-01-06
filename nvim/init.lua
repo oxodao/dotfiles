@@ -99,6 +99,11 @@ vim.o.hlsearch = true
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
+vim.wo.so = 10
+
+-- Add invisible chars
+vim.opt.listchars:append({ tab = ">-", trail = "~", extends = ">", precedes = "<" })
+vim.opt.list = true
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -133,6 +138,11 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Map Shift+J/Shift+k to switch between buffers and Shift+X to close buffer
+vim.keymap.set('n', 'J', ':bp<CR>')
+vim.keymap.set('n', 'K', ':bn<CR>')
+vim.keymap.set('n', 'X', ':bd<CR>')
 
 -- Clear search with <space><space>
 vim.keymap.set('n', '<leader><space>', ':nohl<CR>', { desc = 'Clear the search highlight' })
