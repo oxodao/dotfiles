@@ -80,4 +80,6 @@ __pycache__/
 *.gitignore
 *.gitignore/
 
+backend/core/management/commands/tmptest.py
 backend/core/custom_eav_migrations/
+local-debug-cmd.py
