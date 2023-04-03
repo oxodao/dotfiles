@@ -9,6 +9,7 @@ require('telescope').setup {
       },
     },
   },
+  file_ignore_patterns = { "__pycache__" }
 }
 
 

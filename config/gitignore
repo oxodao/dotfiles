@@ -58,7 +58,6 @@ env.prod
 auth.json
 .phpunit.result.cache
 
-*.gitignore.*
 .initialized
 
 *.iml
@@ -77,8 +76,6 @@ fr.eu_browse_tree_mappings._TTH_.csv
 *.tmp.*
 __pycache__/
 .~*
-*.gitignore
-*.gitignore/
 
 backend/core/management/commands/tmptest.py
 backend/core/custom_eav_migrations/
