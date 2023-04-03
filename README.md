@@ -1,6 +1,5 @@
 # Installation
 
-N.B. I am using my [metaprint](https://github.com/oxodao/metaprint) software so it is required for this config to work. Though since there is no packages yet, I do not include it in the last section.
 ```sh
 touch ~/.memo
 touch ~/.zshrc.custom
@@ -34,7 +33,7 @@ export GIT_COMMITTER_EMAIL=my@email.fr
 ## Packages required
 
 ```sh
-yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst alacritty lm_sensors inetutils scrot i3lock playerctl metaprint
+yay -Sy rofi rofimoji rofi-calc xclip xsel xdotool exa direnv dunst alacritty lm_sensors inetutils scrot i3lock playerctl metaprint-bin bat visidata
 ```
 
 @TODO: Add in ansible-arch-setup: bat, visidata
