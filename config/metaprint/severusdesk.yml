@@ -6,10 +6,10 @@ temperature:
 
   i3_gpu:
     prefix: 🖥️
-    json_path: $.amdgpu-pci-0600.edge.temp1_input
+    json_path: $.amdgpu-pci-0900.edge.temp1_input
     suffix: °C
 
 ip:
   tmux:
-    interface: ['enp5s0']
+    interface: ['enp6s0']
     no_ip: No address
