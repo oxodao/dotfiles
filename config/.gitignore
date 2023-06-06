@@ -4,6 +4,7 @@
 !.gitignore
 !user-dirs.dirs
 
+!alacritty/
 !dunst/
 !i3/
 !ideavim/
