@@ -1,4 +1,4 @@
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=/etc/omz
 
 source $HOME/.config/zsh/config.zsh
 source $HOME/.config/zsh/path.zsh
@@ -22,3 +22,7 @@ if [ -f ~/.zshrc.custom ]; then
 else
     print "Could not find the local override zshrc (~/.zshrc.custom)"
 fi
+
+# Use the kde wallet
+export SSH_ASKPASS=ksshaskpass
+export SSH_ASKPASS_REQUIRE=prefer

@@ -1,6 +1,7 @@
 configuration {
   font:               "Hack Nerd Font 16";
-  modi:               "run,emoji,calc";
+  //modi:               "run,emoji,calc";
+  modi: "run";
 
   location:           6;
   yoffset:            -105;
