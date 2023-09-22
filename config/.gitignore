@@ -1,6 +1,24 @@
 /*/
 /*
 
+#region Weird things to store my vscode config without storing all vscode stuff
+!Code/
+Code/*
+!Code/User/
+Code/User/*
+!Code/User/settings.json
+!Code/User/keybindings.json
+#endregion
+
+#region Same stuff for vscodium
+!VSCodium/
+VSCodium/*
+!VSCodium/User/
+VSCodium/User/*
+!VSCodium/User/settings.json
+!VSCodium/User/keybindings.json
+#endregion
+
 !.gitignore
 !user-dirs.dirs
 
@@ -23,3 +41,7 @@ nvim/plugin
 
 !gitignore
 !wall.png
+
+.direnv/
+
+zsh/scripts/comic.ttf

@@ -7,7 +7,8 @@ alias 'dc'='docker compose'
 # Those envvar are loaded on a per-project basis with the help of direnv
 alias 'd'='docker compose exec $PHP_CONTAINER'
 alias 's'='docker compose exec $PHP_CONTAINER bin/console '
-alias 'p'='docker compose exec $PHP_CONTAINER python manage.py'
+alias 'p'='docker compose exec $PHP_CONTAINER python manage.py '
+alias 'pd'='docker compose exec $PHP_CONTAINER python -m debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py '
 alias 'n'='docker compose exec $NODE_CONTAINER'
 
 alias 'dr'='docker compose run --rm $PHP_CONTAINER'
