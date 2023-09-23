@@ -29,7 +29,7 @@
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%Y-%m-%d <b>%H:%M:%S</b>}",
-        "internal": 1 // Not working for some reason
+        "interval": 1
     },
     "cpu": {
         "format": "{usage}% ",
@@ -39,13 +39,11 @@
         "format": "{}% "
     },
     "backlight": {
-        // "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
         "states": {
-            // "good": 95,
             "warning": 30,
             "critical": 15
         },
@@ -53,12 +51,9 @@
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
@@ -75,6 +70,10 @@
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "hyprland/window": {
+        "separate-outputs": true,
+        "max-length": 50
     }
 }
 
