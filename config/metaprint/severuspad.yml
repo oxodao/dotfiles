@@ -16,7 +16,7 @@ temperature:
 
 ip:
   tmux:
-    interface: ['wlp1s0', 'enp4s0f4u2']
+    interface: ['wlan0', 'enp4s0f4u2']
     no_ip: No address
 
 backlight:
