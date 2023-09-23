@@ -1,0 +1,120 @@
+{
+    "keyboard.dispatch": "keyCode",
+
+    "editor.bracketPairColorization.enabled": true,
+    "editor.cursorSurroundingLines": 10,
+    "editor.foldingStrategy": "indentation",
+    "editor.fontFamily": "'JetBrains Mono','Droid Sans Mono', 'monospace', monospace",
+    "editor.guides.bracketPairs":"active",
+    "editor.inlineSuggest.enabled": true,
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "boundary",
+    "editor.suggestSelection": "first",
+
+    "search.useIgnoreFiles": false,
+    "workbench.colorTheme": "SynthWave '84",
+
+    "security.workspace.trust.emptyWindow": false,
+    "security.workspace.trust.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "security.workspace.trust.startupPrompt": "never",
+
+    "workbench.editorAssociations": {
+        "*.png": "luna.editor",
+        "*.xml": "default",
+        "*.svg": "hediet.vscode-drawio-text"
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.classpath": true,
+        "**/.factorypath": true,
+        "**/.project": true,
+        "**/.settings": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/*.pyc": true
+    },
+
+    "vim.easymotion": true,
+    "vim.highlightedyank.enable": true,
+    "vim.highlightedyank.textColor": "#0DA000",
+    "vim.leader": "\\Space",
+    "vim.smartRelativeLine": true,
+    "vim.highlightedyank.duration": 500,
+    "vim.highlightedyank.color": "green",
+
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": false,
+        "go": false,
+        "arduino-output": true
+    },
+
+    "ansible.ansible.path": "/opt/ansible/venv/bin/ansible",
+    "arduino.useArduinoCli": true,
+    "redhat.telemetry.enabled": false,
+    "svelte.enable-ts-plugin": true,
+    "xml.server.vmargs": "-Xmx128M",
+
+    "go.toolsManagement.autoUpdate": true,
+    "go.useLanguageServer": true,
+
+    "[dockercompose]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+
+    "[python]": {
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+
+    "python.analysis.extraPaths": [
+        "/home/oxodao/.local/lib/python3.10/site-packages"
+    ],
+
+    "[scss]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    }, 
+
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+ 
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "python.formatting.provider": "none",
+    "hediet.vscode-drawio.resizeImages": null,
+    "window.zoomLevel": 1,
+    "editor.minimap.enabled": false,
+    "git.openRepositoryInParentFolders": "never",
+}
