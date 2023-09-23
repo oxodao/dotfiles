@@ -19,6 +19,10 @@ VSCodium/User/*
 !VSCodium/User/keybindings.json
 #endregion
 
+!gtk-3.0/
+gtk-3.0/*
+!gtk-3.0/settings.ini
+
 !.gitignore
 !user-dirs.dirs
 
