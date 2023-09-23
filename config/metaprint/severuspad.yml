@@ -1,5 +1,5 @@
 battery:
-  i3:
+  hyprland:
     battery_name: BAT0
     format: "%status_text% %percentage%%"
     charging_text: 🔌
@@ -7,8 +7,7 @@ battery:
     prefix: "  "
 
 temperature:
-  i3_cpu:
-    prefix: 🔥
+  hyprland_cpu:
     json_path: $.k10temp-pci-00c3.Tctl.temp1_input
     rounding: 0
     unit: "°C"
@@ -18,8 +17,3 @@ ip:
   tmux:
     interface: ['wlan0', 'enp4s0f4u2']
     no_ip: No address
-
-backlight:
-  i3:
-    prefix: 
-    device: amdgpu_bl0
