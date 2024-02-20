@@ -1,7 +1,40 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'typescript', 'vim', 'go', 'html', 'javascript', 'json', 'python', 'sql', 'tsx', 'yaml', 'json5', 'svelte' },
+  ensure_installed = { 
+    'arduino',
+    'c',
+    'c_sharp',
+    'cmake',
+    'comment',
+    'cpp',
+    'csv',
+    'dockerfile',
+    'gitcommit',
+    'go',
+    'html',
+    'javascript',
+    'json',
+    'json5',
+    'jsdoc',
+    'latex',
+    'lua',
+    'make',
+    'php',
+    'phpdoc',
+    'python',
+    'regex',
+    'scss',
+    'sql',
+    'ssh_config',
+    'tsx',
+    'twig',
+    'typescript',
+    'udev',
+    'vim',
+    'xml',
+    'yaml',
+  },
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   textobjects = {
@@ -50,4 +83,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable = false -- Disable fold on startup

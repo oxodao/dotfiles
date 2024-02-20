@@ -36,7 +36,10 @@ vim.keymap.set('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard', 
 vim.keymap.set('n', '<leader>P', '"+P', { desc = 'Paste from system clipboard', noremap = true})
 
 -- Diagnostic keymaps
-vim.keymap.set('n', 'sj', vim.diagnostic.goto_prev)
-vim.keymap.set('n', 'sk', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action)
+
+-- NvimTree
+vim.keymap.set('n', '<C-t>', ':NvimTreeToggle<CR>', {
+    noremap = true
+  })

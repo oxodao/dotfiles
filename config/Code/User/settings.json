@@ -77,7 +77,7 @@
     },
 
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
 
     "[jsonc]": {
@@ -106,7 +106,7 @@
     },
 
     "[xml]": {
-        "editor.defaultFormatter": "DotJoshJohnson.xml"
+        "editor.defaultFormatter": "redhat.vscode-xml"
     },
 
     "[yaml]": {
@@ -114,7 +114,7 @@
     },
     "python.formatting.provider": "none",
     "hediet.vscode-drawio.resizeImages": null,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
     "editor.minimap.enabled": false,
     "git.openRepositoryInParentFolders": "never",
 }

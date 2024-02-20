@@ -10,7 +10,7 @@ vim.wo.relativenumber = true
 vim.wo.so = 10
 
 -- Add invisible chars
-vim.opt.listchars:append({ tab = ">-", trail = "~", extends = ">", precedes = "<" })
+vim.opt.listchars:append({ tab = ">-", trail = "~", extends = ">", precedes = "<", multispace = '·' })
 vim.opt.list = true
 
 -- Enable break indent
@@ -29,10 +29,12 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme synthwave84]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+
+vim.o.cmdheight = 0
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
@@ -49,5 +51,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
-

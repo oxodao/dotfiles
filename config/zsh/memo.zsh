@@ -3,4 +3,4 @@ echo "Memo: "
 /usr/bin/cat ~/.memo
 
 alias m="/usr/bin/cat ~/.memo"
-alias memo="nvim ~/.memo"
+alias memo="vim ~/.memo"

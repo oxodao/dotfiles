@@ -13,10 +13,3 @@ alias 'n'='docker compose exec $NODE_CONTAINER'
 
 alias 'dr'='docker compose run --rm $PHP_CONTAINER'
 alias 'sr'='docker compose run --rm $PHP_CONTAINER bin/console '
-
-
-# that thing there 
-alias k=kubectl
-alias kp="kubectl proxy"
-alias kl="kubectl --kubeconfig ~/.kube/lupin"
-alias klp="kubectl --kubeconfig ~/.kube/lupin proxy"

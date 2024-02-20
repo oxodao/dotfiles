@@ -1,12 +1,6 @@
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -31,8 +25,9 @@ local on_attach = function(_, bufnr)
   nmap('<leader>K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-S-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-  -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+  -- Lesser used LSP functionality
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
   nmap('<leader>wl', function()
@@ -51,11 +46,10 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
   gopls = {},
   pyright = {},
-  -- rust_analyzer = {},
   tsserver = {},
+  phpactor = {},
 
   lua_ls = {
     Lua = {
@@ -64,7 +58,6 @@ local servers = {
     },
   },
 }
-
 
 -- Setup neovim lua configuration
 require('neodev').setup()

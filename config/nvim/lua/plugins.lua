@@ -34,6 +34,13 @@ require('packer').startup(function(use)
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
+  use { -- Autocomplete commands
+    'gelguy/wilder.nvim',
+    config = function()
+
+    end
+  }
+
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -49,9 +56,12 @@ require('packer').startup(function(use)
   -- Git related plugins
   use 'tpope/vim-fugitive'
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  -- use 'lunarvim/synthwave84.nvim' -- Theme inspired by VSCode's Synthwave84
+  use 'artanikin/vim-synthwave84'
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use {'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons'}
+
+  use {'akinsho/bufferline.nvim', tag = 'v4.*', requires = 'nvim-tree/nvim-web-devicons'}
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
@@ -65,7 +75,35 @@ require('packer').startup(function(use)
   use {'stevearc/dressing.nvim'}
 
   -- Tree view
-  use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' }, tag = 'nightly' }
+  use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
+
+  -- Highlight when undoing
+  use { 'tzachar/highlight-undo.nvim', opts = { } }
+
+  -- Vertical lines to see the indent
+  use "lukas-reineke/indent-blankline.nvim"
+
+  use { "akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end }
+
+  -- A debugger
+  use "vim-vdebug/vdebug"
+
+  -- Colored delimiters (parenthesis, brackets, ...)
+  -- use "HiPhish/rainbow-delimiters.nvim"
+
+  -- VimWiki
+  use 'vimwiki/vimwiki'
+
+  -- PHP specific
+  use 'phpstan/vim-phpstan'
+
+  -- Useful commands
+  use 'tpope/vim-eunuch'
+
+  -- better vim.ui
+  use {'stevearc/dressing.nvim'}
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -98,5 +136,3 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
-
-
