@@ -77,7 +77,7 @@
     },
 
     "[json]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
 
     "[jsonc]": {
@@ -117,4 +117,6 @@
     "window.zoomLevel": 2,
     "editor.minimap.enabled": false,
     "git.openRepositoryInParentFolders": "never",
+    "tabnine.experimentalAutoImports": true,
+    "cmake.showOptionsMovedNotification": false,
 }
