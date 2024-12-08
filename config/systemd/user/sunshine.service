@@ -1,0 +1,10 @@
+[Unit]
+Description=Sunshine game streaming
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=sunshine
+
+[Install]
+WantedBy=default.target

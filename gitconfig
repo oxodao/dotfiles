@@ -1,6 +1,7 @@
 [user]
     name = Nathan JANCZEWSKI
     email = nathan@janczewski.fr
+    signingkey = /home/oxodao/.ssh/id_ed25519.pub
 
 [core]
     pager = delta
@@ -37,3 +38,12 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    allowedSignersFile = /home/oxodao/.ssh/allowed_signers
+
+[commit]
+    gpgsign = true

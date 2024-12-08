@@ -1,4 +1,5 @@
 alias 'syncmc'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ o:~/mc/launcher/downloads/'
+alias 'syncmcbs'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ o:~/mc/launcher/v2/downloads/'
 alias 'syncmcg'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ o:~/mc/gamut/data/files/launcher/downloads/'
 
 alias 'syncmcpp'='rsync -azv -P /opt/overflow/skcraft_pp_ws/_upload/ o:~/mc/launcher-pp/downloads/'

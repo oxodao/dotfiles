@@ -119,4 +119,6 @@
     "git.openRepositoryInParentFolders": "never",
     "tabnine.experimentalAutoImports": true,
     "cmake.showOptionsMovedNotification": false,
+    "editor.stickyScroll.enabled": false,
+    "extensions.ignoreRecommendations": true,
 }
