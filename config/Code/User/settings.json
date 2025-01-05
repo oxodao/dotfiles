@@ -77,7 +77,7 @@
     },
 
     "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 
     "[jsonc]": {
@@ -121,4 +121,7 @@
     "cmake.showOptionsMovedNotification": false,
     "editor.stickyScroll.enabled": false,
     "extensions.ignoreRecommendations": true,
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
 }
