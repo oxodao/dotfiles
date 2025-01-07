@@ -1,7 +1,7 @@
 # Installation
 
 ```sh
-touch ~/.memo
+touch ~/.memo.md
 touch ~/.zshrc.custom
 
 ln -s $PWD/config ~/.config
@@ -16,13 +16,16 @@ systemctl enable --now --user ssh-agent
 ```
 
 # Customizations
+
 This setup requires a ~/.zshrc.custom that lets you customize the setup for the current device
 
 This also requires a ~/.config/i3/custom.`hostname`.conf file (can be empty).
 
 ## Git
+
 Change the email per machine (i.e. work machine vs home machine)
 `~/.zshrc.custom`
+
 ```sh
 export GIT_AUTHOR_NAME=FIRSTNAME LASTNAME
 export GIT_AUTHOR_EMAIL=my@email.fr
