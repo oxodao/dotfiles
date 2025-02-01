@@ -1,6 +1,4 @@
 {
-    "keyboard.dispatch": "keyCode",
-
     "editor.bracketPairColorization.enabled": true,
     "editor.cursorSurroundingLines": 10,
     "editor.foldingStrategy": "indentation",
@@ -124,4 +122,6 @@
     "[css]": {
         "editor.defaultFormatter": "vscode.css-language-features"
     },
+    "keyboard.dispatch": "keyCode",
+    "workbench.startupEditor": "none",
 }

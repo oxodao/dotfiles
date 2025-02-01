@@ -1,7 +1,7 @@
 datetime:
   i3:
     prefix: " 🕒"
-    format: 02/01/06 <b>15:04:05</b>
+    format: "02/01/06 <b>15:04:05</b>  "
   tmux:
     format: 15:04:05
 
@@ -28,7 +28,6 @@ music:
 pulseaudio:
   i3_output:
     type: sink
-    prefix: "  "
     format: "🔊 %percentage%%"
     muted_format: "🔇 %percentage%%"
 
