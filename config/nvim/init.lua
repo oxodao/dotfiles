@@ -16,23 +16,10 @@ require('plugins/telescope')
 require('plugins/treesitter')
 require('plugins/lsp')
 require('plugins/nvimcmp')
-require('plugins/nvimtree')
+-- require('plugins/nvimtree')
+require('plugins/neotree')
 require('plugins/vimwiki')
 require('plugins/wilder')
+require('plugins/which_key')
 
 -- vim: ts=2 sts=2 sw=2 et
-
--- Use this if you want it to automatically show all diagnostics on the
--- current line in a floating window. Personally, I find this a bit
--- distracting and prefer to manually trigger it (see below). The
--- CursorHold event happens when after `updatetime` milliseconds. The
--- default is 4000 which is much too long
--- vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float()')
--- vim.o.updatetime = 800
-
--- Show all diagnostics on current line in floating window
-vim.api.nvim_set_keymap(
-  'n', '<Leader>d', ':lua vim.diagnostic.open_float()<CR>', 
-  { noremap = true, silent = true }
-)
-

@@ -1,4 +1,4 @@
--- Install packer
+--#region Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -6,6 +6,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
   vim.cmd [[packadd packer.nvim]]
 end
+--#endregion
 
 require('packer').startup(function(use)
   -- Package manager
@@ -27,6 +28,12 @@ require('packer').startup(function(use)
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
     },
+  }
+
+  use { -- Snippets
+    'L3MON4D3/LuaSnip',
+    tag = 'v2.*',
+    run = 'make instalal_jsregexp'
   }
 
   use { -- Autocompletion
@@ -71,11 +78,21 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
-  -- Better input / select for vim
+  -- Better input / select / ui for vim
   use {'stevearc/dressing.nvim'}
 
   -- Tree view
-  use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
+  -- use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  }
 
   -- Highlight when undoing
   use { 'tzachar/highlight-undo.nvim', opts = { } }
@@ -102,8 +119,10 @@ require('packer').startup(function(use)
   -- Useful commands
   use 'tpope/vim-eunuch'
 
-  -- better vim.ui
-  use {'stevearc/dressing.nvim'}
+  use {
+      'AckslD/nvim-whichkey-setup.lua',
+      requires = {'liuchengxu/vim-which-key'},
+  }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')

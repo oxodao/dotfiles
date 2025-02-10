@@ -37,9 +37,8 @@ vim.keymap.set('n', '<leader>P', '"+P', { desc = 'Paste from system clipboard', 
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>d', ':Telescope diagnostics<CR>')
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action)
 
--- NvimTree
-vim.keymap.set('n', '<C-t>', ':NvimTreeToggle<CR>', {
-    noremap = true
-  })
+-- Neotree
+vim.keymap.set('n', '<C-d>', ':Neotree action=focus source=filesystem position=left toggle<CR>', { noremap = true })
