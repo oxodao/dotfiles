@@ -1,17 +1,17 @@
 set $mod Mod4
 
-set $ws1 "1: "
-set $ws2 "2: "
-set $ws3 "3: "
-set $ws4 "4: "
-set $ws5 "5: "
-set $ws6 "6: "
-set $ws7 "7: "
-set $ws8 "8: "
-set $ws9 "9: "
-set $ws10 "10: "
-set $ws11 "SECURE - "
-set $ws12 "VM - "
+set $ws1 "1:  "
+set $ws2 "2:  "
+set $ws3 "3:  "
+set $ws4 "4:  "
+set $ws5 "5:  "
+set $ws6 "6:  "
+set $ws7 "7:  "
+set $ws8 "8:  "
+set $ws9 "9:  "
+set $ws10 "10:  "
+set $ws11 "SECURE -  "
+set $ws12 "VM -  "
 
 include "~/.config/i3/global.conf"
 
@@ -21,7 +21,7 @@ include "~/.config/i3/assigned_workspaces.conf"
 
 include "~/.config/i3/startup.conf"
 
-set $size_bar 27
+set $size_bar 32
 set $config_bar ~/.config/i3/i3blocks.conf
 
 

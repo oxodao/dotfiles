@@ -1,0 +1,16 @@
+datetime:
+  tmux:
+    format: 15:04:05
+
+ram:
+  tmux:
+    prefix: \uefc5
+    suffix: " "
+    format: "%used% / %total% %unit%"
+    unit: Go
+    rounding: 2
+
+ip:
+  tmux:
+    interface: ['enp0s3']
+    no_up: No address
