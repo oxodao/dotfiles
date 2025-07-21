@@ -27,6 +27,9 @@ source $HOME/.config/zsh/software/node.zsh
 source $HOME/.config/zsh/software/php.zsh
 source $HOME/.config/zsh/software/rsync.zsh
 
+## Mini-scripts
+source $HOME/.config/zsh/helpers/pdf_to_jpg.zsh
+
 # WSL-specific stuff
 if uname -r | grep -q 'microsoft'; then
 	source $HOME/.config/zsh/wsl.zsh

@@ -49,3 +49,5 @@ nvim/plugin
 .direnv/
 
 zsh/scripts/comic.ttf
+
+!wallpapers
