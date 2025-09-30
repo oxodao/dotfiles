@@ -3,6 +3,13 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 --------------
 
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*.tarif",
+  callback = function()
+    vim.bo.syntax = "json"
+  end,
+})
+
 require('plugins')
 require('settings')
 require('keybinds')

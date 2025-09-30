@@ -125,5 +125,6 @@
     },
     "keyboard.dispatch": "keyCode",
     "workbench.startupEditor": "none",
-    "editor.gotoLocation.multipleDefinitions": "goto"
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.largeFileOptimizations": false
 }
