@@ -29,6 +29,8 @@ gtk-3.0/*
 !alacritty/
 !dunst/
 !i3/
+!hypr/
+!waybar/
 !ideavim/
 !mpv/
 !rofi/
