@@ -8,6 +8,7 @@ function _zsh_setup_docker() {
   # Those envvar are loaded on a per-project basis with the help of direnv
 
   export APP_CONTAINER=app
+  export NODE_CONTAINER=frontend
 
   # Generic aliases
   alias 'd'='docker compose exec $APP_CONTAINER'

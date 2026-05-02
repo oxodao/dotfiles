@@ -68,7 +68,7 @@
     },
 
     "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 
     "[javascript]": {
@@ -85,7 +85,7 @@
 
     "[python]": {
         "editor.formatOnType": true,
-        "editor.defaultFormatter": "ms-python.black-formatter"
+        "editor.defaultFormatter": "charliermarsh.ruff"
     },
 
     "python.analysis.extraPaths": [
@@ -126,5 +126,49 @@
     "keyboard.dispatch": "keyCode",
     "workbench.startupEditor": "none",
     "editor.gotoLocation.multipleDefinitions": "goto",
-    "editor.largeFileOptimizations": false
+    "python.analysis.typeCheckingMode": "standard",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports.biome": "explicit"
+    },
+    "biome.suggestInstallingGlobally": false,
+    "python.defaultInterpreterPath": "/bin/python3",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-1.8",
+            "path": "/home/oxodao/.sdkman/candidates/java/8.0.432-amzn"
+        }
+    ],
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off"
+    },
+    "json.schemaDownload.trustedDomains": {
+        "https://schemastore.azurewebsites.net/": true,
+        "https://raw.githubusercontent.com/microsoft/vscode/": true,
+        "https://raw.githubusercontent.com/devcontainers/spec/": true,
+        "https://www.schemastore.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://json-schema.org/": true,
+        "https://developer.microsoft.com/json-schemas/": true,
+        "https://biomejs.dev": true
+    },
+    "chat.viewSessions.orientation": "stacked",
+    "python-envs.workspaceSearchPaths": [
+        "./**/.venv",
+        "./backend/.venv",
+        "./my-custom-env"
+    ],
+    "chat.tools.urls.autoApprove": {
+        "https://code.visualstudio.com": true,
+        "https://github.com/microsoft/vscode/wiki/*": true,
+        "https://minecraft.wiki": true
+    },
+    "editor.wordWrap": "off",
+    "terminal.integrated.stickyScroll.enabled": false
 }

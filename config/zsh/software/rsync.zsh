@@ -1,8 +1,4 @@
 # Minecraft
-alias 'syncmc'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ o:~/mc/launcher/downloads/'
-alias 'syncmcbs'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ o:~/mc/launcher/v2/downloads/'
-alias 'syncmcg'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ o:~/mc/gamut/data/files/launcher/downloads/'
-alias 'syncmcserv'='rsync -azv --exclude world --exclude backups --exclude logs --exclude journeymap --exclude crash-reports -P /opt/overflow/current_server/ o:~/mc/server/data'
-
-# Calibre
-alias 'synccalibre'='rsync -azv -P ~/Calibre\ Library/ o:~/calibreweb/books/'
+# alias 'syncmc'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ vps:/opt/mc_launcher/www/v2/downloads/'
+alias 'syncmc'='rsync -azv -P /opt/overflow/skcraft_ws/_upload/ vps:/home/oxodao/minecraft/modpacks/www/game/'
+alias 'syncmcpp'='rsync -azv -P /opt/overflow/preprod_ws/_upload/ vps:/home/oxodao/minecraft/preprod/modpacks/www/'

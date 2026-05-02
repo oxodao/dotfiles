@@ -39,9 +39,3 @@ pulseaudio:
     format: "%percentage%%"
     muted_format: "🔇 %percentage%%"
     suffix: ' '
-
-custom:
-  updates:
-    prefix: ⚙️
-    #sudo pacman -Syy > /dev/null &&
-    command: pacman -Qu | wc -l

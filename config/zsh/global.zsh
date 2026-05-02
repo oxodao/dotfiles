@@ -29,6 +29,7 @@ source $HOME/.config/zsh/software/rsync.zsh
 
 ## Mini-scripts
 source $HOME/.config/zsh/helpers/pdf_to_jpg.zsh
+source $HOME/.config/zsh/helpers/ffmessenger.zsh
 
 # WSL-specific stuff
 if uname -r | grep -q 'microsoft'; then
