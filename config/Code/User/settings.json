@@ -158,7 +158,6 @@
         "https://developer.microsoft.com/json-schemas/": true,
         "https://biomejs.dev": true
     },
-    "chat.viewSessions.orientation": "stacked",
     "python-envs.workspaceSearchPaths": [
         "./**/.venv",
         "./backend/.venv",
@@ -170,5 +169,7 @@
         "https://minecraft.wiki": true
     },
     "editor.wordWrap": "off",
-    "terminal.integrated.stickyScroll.enabled": false
+    "terminal.integrated.stickyScroll.enabled": false,
+    "chat.tips.enabled": false,
+    "chat.viewSessions.orientation": "stacked"
 }

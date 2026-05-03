@@ -1,154 +1,90 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 34,
-    "spacing": 4,
+    "height": 28,
+    "spacing": 2,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "backlight", "cpu", "memory", "temperature", "battery", "clock", "tray"],
-     "hyprland/workspaces": {
-         "disable-scroll": true,
-         "on-click": "activate",
-         "format": "{name}: {icon}",
-         "on-scroll-up": "hyprctl dispatch workspace m-1 > /dev/null",
-         "on-scroll-down": "hyprctl dispatch workspace m+1 > /dev/null",
-         "format-icons": {
-             "1": "",
-             "2": " ",
-             "3": "",
-             "4": " ",
-             "5": "",
-             "6": "",
-             "7": "",
-             "8": "",
-             "9": "",
-             "10": "",
-             "urgent": "",
-             "focused": "",
-             "default": ""
-         }
-     },
-    "keyboard-state": {
-        "numlock": false,
-        "capslock": false,
-        "format": "{name} {icon}",
+    "modules-right": ["custom/ram", "custom/cpu", "custom/gpu", "custom/backlight", "custom/volume", "custom/battery", "clock", "tray"],
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "on-click": "activate",
+        "format": "{name}: {icon}",
+        "on-scroll-up": "hyprctl dispatch workspace m-1 > /dev/null",
+        "on-scroll-down": "hyprctl dispatch workspace m+1 > /dev/null",
         "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "1": "",
+            "2": " ",
+            "3": "",
+            "4": " ",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
         }
     },
     "hyprland/window": {
         "max-length": 50,
         "separate-outputs": true
     },
-    "hyprland/language": {
-        "format": "{}",
-        "max-length": 18
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 18,
         "spacing": 0
     },
     "clock": {
-        // "timezone": "America/New_York",
+        "interval": 1,
+        "timezone": "Europe/Paris",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": " {:%d/%m/%y <b>%H:%M:%S</b> }",
         "format-alt": "{:%Y-%m-%d}"
     },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
+    "custom/ram": {
+        "exec": "metaprint ram hyprland",
+        "interval": 10,
+        "return-type": "text",
+        "format": "{}"
     },
-    "memory": {
-        "format": "{}% "
+    "custom/cpu": {
+        "exec": "metaprint temperature hyprland_cpu",
+        "interval": 10,
+        "return-type": "text",
+        "format": "{}"
     },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+    "custom/gpu": {
+        "exec": "metaprint temperature hyprland_gpu",
+        "interval": 10,
+        "return-type": "text",
+        "format": "{}"
     },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    "custom/backlight": {
+        "exec": "metaprint backlight hyprland",
+        "interval": 1,
+        "return-type": "text",
+        "format": "{}",
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "smooth-scrolling-threshold": 5
     },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 🗲",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+    "custom/volume": {
+        "exec": "metaprint pulseaudio hyprland_output",
+        "interval": 1,
+        "return-type": "text",
+        "format": "{}",
+        "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "on-click": "pavucontrol",
+        "smooth-scrolling-threshold": 5
     },
-    "pulseaudio": {
-        // "scroll-step": 10, // %, can be a float
-        "format": "{volume}%{icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+    "custom/battery": {
+        "exec": "metaprint battery hyprland",
+        "interval": 1,
+        "return-type": "text",
+        "format": "{}"
     }
 }
 

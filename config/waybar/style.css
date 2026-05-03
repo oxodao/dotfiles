@@ -1,20 +1,3 @@
-@define-color base00 #181818;
-@define-color base01 #2b2e37;
-@define-color base02 #3b3e47;
-@define-color base03 #585858;
-@define-color base04 #b8b8b8;
-@define-color base05 #d8d8d8;
-@define-color base06 #e8e8e8;
-@define-color base07 #f8f8f8;
-@define-color base08 #ab4642;
-@define-color base09 #dc9656;
-@define-color base0A #f7ca88;
-@define-color base0B #a1b56c;
-@define-color base0C #86c1b9;
-@define-color base0D #7cafc2;
-@define-color base0E #ba8baf;
-@define-color base0F #a16946;
-
 * {
   transition: none;
   box-shadow: none;
@@ -22,84 +5,62 @@
 
 #waybar {
 	font-family: 'Source Code Pro', sans-serif;
-	font-size: 1.2em;
+  font-size: 0.95em;
 	font-weight: 400;
-  color: @base04;
-  background: @base01;
+  color: #F1B0D8;
+  background: #0E0D13;
 }
 
 #workspaces {
-  margin: 0 4px;
+  margin: 0 2px;
 }
 
 #workspaces button {
-  margin: 4px 0;
-  padding: 0 4px;
-  color: @base05;
-}
-
-#workspaces button.visible {
+  margin: 2px 0;
+  padding: 0 3px;
+  color: #F1B0D8;
 }
 
 #workspaces button.active {
   border-radius: 4px;
-  background-color: @base02;
+  background-color: #262335;
+  border: 1px solid #DE49A4;
 }
 
 #workspaces button.urgent {
-  color: rgba(238, 46, 36, 1);
+  background-color: #FF5555;
+  color: #F8F8F2;
 }
 
 #tray {
-  margin: 4px 4px 4px 4px;
+  margin: 2px 2px 2px 2px;
   border-radius: 4px;
-  background-color: @base02;
 }
 
 #tray * {
-  padding: 0 6px;
-  border-left: 1px solid @base00;
+  padding: 0 4px;
 }
 
 #tray *:first-child {
   border-left: none;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-updates, #custom-weather, #custom-mail, #clock, #temperature, #language{
-  margin: 4px 2px;
-  padding: 0 6px;
-  background-color: @base02;
+#clock, #custom-ram, #custom-cpu, #custom-gpu, #custom-backlight, #custom-volume, #custom-battery {
+  margin: 2px 1px;
+  padding: 0 4px;
   border-radius: 4px;
-  min-width: 20px;
-}
-
-#pulseaudio.muted {
-  color: @base0F;
-}
-
-#pulseaudio.bluetooth {
-  color: @base0C;
+  min-width: 16px;
 }
 
 #clock {
   margin-left: 0px;
-  margin-right: 4px;
+  margin-right: 2px;
   background-color: transparent;
-}
-
-#temperature.critical {
-  color: @base0F;
 }
 
 #window {
   font-size: 0.9em;
 	font-weight: 400;
 	font-family: sans-serif;
-}
-
-#language {
-	font-size: 0.9em;
-	font-weight: 500;
-	letter-spacing: -1px;
 }
 

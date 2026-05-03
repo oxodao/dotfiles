@@ -4,7 +4,17 @@ temperature:
     json_path: $.k10temp-pci-00c3.Tctl.temp1_input
     suffix: °C
 
+  hyprland_cpu:
+    prefix: 🧠
+    json_path: $.k10temp-pci-00c3.Tctl.temp1_input
+    suffix: °C
+
   i3_gpu:
+    prefix: 🖥️
+    json_path: $.amdgpu-pci-0900.edge.temp1_input
+    suffix: °C
+
+  hyprland_gpu:
     prefix: 🖥️
     json_path: $.amdgpu-pci-0900.edge.temp1_input
     suffix: °C

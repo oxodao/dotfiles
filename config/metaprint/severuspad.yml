@@ -5,6 +5,11 @@ battery:
     charging_text: 🔌
     discharging_text: 🔋
     prefix: "  "
+  hyprland:
+    battery_name: BAT0
+    format: "%status_text% %percentage%%"
+    charging_text: 🔌
+    discharging_text: 🔋
 
 temperature:
   i3_cpu:
@@ -13,6 +18,11 @@ temperature:
     rounding: 0
     unit: "°C"
     suffix: " "
+  hyprland_cpu:
+    prefix: 🔥
+    json_path: $.k10temp-pci-00c3.Tctl.temp1_input
+    rounding: 0
+    unit: "°C"
 
 ip:
   tmux:
@@ -21,5 +31,8 @@ ip:
 
 backlight:
   i3:
+    prefix: 
+    device: amdgpu_bl0
+  hyprland:
     prefix: 
     device: amdgpu_bl0
