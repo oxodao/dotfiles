@@ -1,0 +1,32 @@
+env-vars = ["TERM=xterm-256color"]
+
+[fonts]
+size = 14
+
+[fonts.regular]
+family = "Hack Nerd Font"
+style = "default"
+
+[colors]
+background = "#262335"
+foreground = "#cbe3e7"
+
+# Normal colors
+black = "#100e23"
+blue = "#91ddff"
+cyan = "#aaffe4"
+green = "#95ffa4"
+magenta = "#c991e1"
+red = "#ff8080"
+white = "#cbe3e7"
+yellow = "#ffe9aa"
+
+# Bright colors
+light-black = "#565575"
+light-blue = "#65b2ff"
+light-cyan = "#63f2f1"
+light-green = "#62d196"
+light-magenta = "#906cff"
+light-red = "#ff5458"
+light-white = "#a6b3cc"
+light-yellow = "#ffb378"
