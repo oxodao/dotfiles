@@ -171,5 +171,7 @@
     "editor.wordWrap": "off",
     "terminal.integrated.stickyScroll.enabled": false,
     "chat.tips.enabled": false,
-    "chat.viewSessions.orientation": "stacked"
+    "chat.viewSessions.orientation": "stacked",
+    "python.languageServer": "Default",
+    "editor.largeFileOptimizations": false
 }

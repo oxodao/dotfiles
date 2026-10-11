@@ -102,3 +102,9 @@ db_dumps
 ImportRPP_Prod.csv
 
 .http/
+
+**/.claude/settings.local.json
+
+.codexextra
+
+EXPLANATION.md
