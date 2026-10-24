@@ -1,0 +1,705 @@
+#!/usr/bin/env python3
+"""
+Usage:
+    grim -g "$(slurp)" - | screenshot-menu
+
+Configuration (~/.config/screenshotter.json), créée au premier lancement :
+
+    {
+      "save_directory": "~/Images",
+      "filename_format": "%Y_%m_%d_%H_%M_%S",
+      "menu_offset": { "x": 12, "y": 12 },
+      "slink": {
+        "host": "https://slink.example.com",
+        "api_key": "sk_...",
+        "collection_id": null
+      }
+    }
+
+    save_directory   dossier de destination des captures enregistrées
+    filename_format  format strftime du nom de fichier, sans extension
+    menu_offset      décalage (px) du menu par rapport au curseur
+    slink.host       URL de base de l'instance Slink
+    slink.api_key    clé API (Profil → API Keys)
+    slink.collection_id  UUID d'une collection, ou null (Profil → collection,
+                         l'id se lit dans l'URL /collection/<uuid>)
+
+Dépendances :
+    python-gobject, gtk3, gtk-layer-shell, grim, slurp,
+    wl-clipboard, curl, libnotify (notify-send)
+"""
+
+from __future__ import annotations
+
+import argparse
+from dataclasses import dataclass
+import datetime as dt
+import functools
+import json
+import mimetypes
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+from typing import NamedTuple
+from urllib.parse import urljoin, urlparse
+import uuid
+
+try:
+    import gi
+
+    gi.require_version("Gdk", "3.0")
+    gi.require_version("Gtk", "3.0")
+    gi.require_version("GtkLayerShell", "0.1")
+
+    from gi.repository import Gdk, Gtk, GtkLayerShell
+except (ImportError, ValueError) as exc:
+    print(f"screenshot-menu: GTK 3 / GtkLayerShell introuvable : {exc}", file=sys.stderr)
+    sys.exit(1)
+
+
+# --- Configuration ----------------------------------------------------------
+
+APP_NAME = "screenshot-menu"
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+
+CONFIG_HOME = os.environ.get("XDG_CONFIG_HOME") or str(Path.home() / ".config")
+CONFIG_PATH = Path(CONFIG_HOME) / "screenshotter.json"
+
+DEFAULT_CONFIG = {
+    "save_directory": "~/Images",
+    "filename_format": "%Y_%m_%d_%H_%M_%S",
+    "menu_offset": {
+        "x": 12,
+        "y": 12,
+    },
+    "slink": {
+        "host": "",
+        "api_key": "",
+        "collection_id": None,
+    },
+}
+
+DEFAULT_MENU_OFFSET = (12, 12)  # décalage du menu par rapport au curseur (px)
+
+MENU_EDGE_MARGIN = 8  # marge minimale avec le bord de la zone utile (px)
+MENU_MIN_SIZE = (115, 70)  # taille minimale du menu (px)
+
+CSS = b"""
+window#screenshot-menu { background: transparent; }
+box#card {
+  background: #1d2028;
+  border: 1px solid #404655;
+  border-radius: 6px;
+}
+button.action {
+  background: transparent;
+  background-image: none;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  text-shadow: none;
+  color: #e7eaf0;
+  padding: 2px 7px;
+  min-height: 0;
+  min-width: 0;
+  font-size: 12px;
+}
+button.action:hover, button.action:focus {
+  background: #394253;
+  background-image: none;
+  color: #ffffff;
+  box-shadow: none;
+}
+"""
+
+ACTIONS = [
+    ("Copy to clipboard", "copy"),
+    ("Save as file", "save"),
+    ("Upload", "upload"),
+    ("Cancel", "cancel"),
+]
+
+KEYBINDS = {
+    "c": "copy",
+    "s": "save",
+    "u": "upload",
+    "escape": "cancel",
+}
+
+
+class Rect(NamedTuple):
+    x: int
+    y: int
+    width: int
+    height: int
+
+
+class Insets(NamedTuple):
+    """Espace réservé par les barres sur chaque bord d'un moniteur."""
+
+    left: int
+    top: int
+    right: int
+    bottom: int
+
+
+# --- Fichier de configuration -----------------------------------------------
+
+@dataclass
+class Config:
+    save_directory: Path
+    filename_format: str
+    menu_offset_x: int
+    menu_offset_y: int
+    slink_host: str
+    slink_api_key: str
+    collection_id: str | None
+
+
+def _as_int(value, default: int) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def load_config(path: Path = CONFIG_PATH) -> Config:
+    """Charge ``screenshotter.json``, en créant un modèle par défaut au besoin."""
+    if path.exists():
+        try:
+            data = json.loads(path.read_text())
+        except ValueError as exc:
+            raise RuntimeError(f"Configuration invalide ({path}) : {exc}") from exc
+    else:
+        data = DEFAULT_CONFIG
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(DEFAULT_CONFIG, indent=2) + "\n")
+
+    offset = data.get("menu_offset") or {}
+    slink = data.get("slink") or {}
+
+    host = (slink.get("host") or "").rstrip("/")
+    if host and not host.startswith(("http://", "https://")):
+        host = "https://" + host
+
+    return Config(
+        save_directory=Path(os.path.expanduser(data.get("save_directory") or "~/Images")),
+        filename_format=data.get("filename_format") or "%Y_%m_%d_%H_%M_%S",
+        menu_offset_x=_as_int(offset.get("x"), DEFAULT_MENU_OFFSET[0]),
+        menu_offset_y=_as_int(offset.get("y"), DEFAULT_MENU_OFFSET[1]),
+        slink_host=host,
+        slink_api_key=slink.get("api_key") or "",
+        collection_id=str(slink["collection_id"]) if slink.get("collection_id") else None,
+    )
+
+
+# --- Utilitaires ------------------------------------------------------------
+
+def error(message: str) -> None:
+    print(f"{APP_NAME}: {message}", file=sys.stderr)
+
+
+def notify(title: str, message: str) -> None:
+    if shutil.which("notify-send"):
+        subprocess.run(
+            ["notify-send", "-a", APP_NAME, title, message],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+
+
+def require_commands(commands: list[str]) -> None:
+    missing = [command for command in commands if not shutil.which(command)]
+    if missing:
+        raise RuntimeError("Commandes manquantes : " + ", ".join(missing))
+
+
+def image_mime(image: Path) -> str:
+    mime, _ = mimetypes.guess_type(image.name)
+    if not mime or not mime.startswith("image/"):
+        raise RuntimeError(f"Type d'image non reconnu : {image.name}")
+
+    return mime
+
+
+def redact(message: str, *secrets: str) -> str:
+    """Remplace les secrets (clé API...) avant tout affichage."""
+    for secret in secrets:
+        if secret:
+            message = message.replace(secret, "***")
+
+    return message
+
+
+def rect_of(rectangle) -> Rect:
+    return Rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+
+
+# --- Interrogation de Hyprland ----------------------------------------------
+
+def hyprctl(*args: str, json_output: bool = False):
+    """Exécute ``hyprctl`` et renvoie la sortie parsée, ou ``None`` si indispo."""
+    if not (os.getenv("HYPRLAND_INSTANCE_SIGNATURE") and shutil.which("hyprctl")):
+        return None
+
+    command = ["hyprctl", *args]
+    if json_output:
+        command.append("-j")
+
+    try:
+        result = subprocess.run(
+            command, capture_output=True, text=True, timeout=2, check=True
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+    if not json_output:
+        return result.stdout
+
+    try:
+        return json.loads(result.stdout)
+    except ValueError:
+        return None
+
+
+def cursor_position() -> tuple[int, int] | None:
+    """Coordonnées globales du curseur, ou ``None`` si indisponibles.
+
+    On évite volontairement tout repli vers un coin d'écran : l'appelant choisit
+    alors un placement explicite plutôt que d'envoyer le menu très loin.
+    """
+    data = hyprctl("cursorpos", json_output=True)
+    if isinstance(data, dict):
+        try:
+            return int(data["x"]), int(data["y"])
+        except (KeyError, ValueError):
+            pass
+
+    # Anciennes versions de hyprctl : sortie brute "x, y", sans JSON.
+    raw = hyprctl("cursorpos")
+    if raw:
+        try:
+            x, y = raw.strip().split(",", 1)
+            return int(x), int(y)
+        except ValueError:
+            pass
+
+    return None
+
+
+def monitor_reserved(geometry: Rect) -> Insets:
+    """Espace réservé (barres) sur le moniteur, via l'IPC Hyprland.
+
+    L'ordre du JSON Hyprland est ``[left, top, right, bottom]``. Les surfaces
+    layer ancrées sont placées après ces zones exclusives : sans correction, le
+    menu est décalé de la hauteur de la barre.
+    """
+    monitors = hyprctl("monitors", json_output=True)
+    for monitor in monitors or []:
+        if monitor.get("x") == geometry.x and monitor.get("y") == geometry.y:
+            left, top, right, bottom = monitor.get("reserved", (0, 0, 0, 0))
+            return Insets(int(left), int(top), int(right), int(bottom))
+
+    return Insets(0, 0, 0, 0)
+
+
+def monitor_at(display, position: tuple[int, int]):
+    """Moniteur GDK contenant ``position``, ou ``None``."""
+    for index in range(display.get_n_monitors()):
+        monitor = display.get_monitor(index)
+        geometry = monitor.get_geometry()
+        if (
+            geometry.x <= position[0] < geometry.x + geometry.width
+            and geometry.y <= position[1] < geometry.y + geometry.height
+        ):
+            return monitor
+
+    return None
+
+
+# --- Placement du menu ------------------------------------------------------
+
+def menu_origin(
+    position: tuple[int, int],
+    geometry: Rect,
+    reserved: Insets,
+    size: tuple[int, int],
+    offset: tuple[int, int] = DEFAULT_MENU_OFFSET,
+) -> tuple[int, int]:
+    """Coin haut-gauche absolu du menu, au plus près du curseur."""
+    min_x = geometry.x + reserved.left + MENU_EDGE_MARGIN
+    min_y = geometry.y + reserved.top + MENU_EDGE_MARGIN
+    max_x = geometry.x + geometry.width - reserved.right - size[0] - MENU_EDGE_MARGIN
+    max_y = geometry.y + geometry.height - reserved.bottom - size[1] - MENU_EDGE_MARGIN
+
+    x = min(max(min_x, position[0] + offset[0]), max(min_x, max_x))
+    y = min(max(min_y, position[1] + offset[1]), max(min_y, max_y))
+
+    return x, y
+
+
+# --- Fenêtre GTK ------------------------------------------------------------
+
+@functools.cache
+def install_css() -> None:
+    provider = Gtk.CssProvider()
+    provider.load_from_data(CSS)
+    Gtk.StyleContext.add_provider_for_screen(
+        Gdk.Screen.get_default(),
+        provider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+    )
+
+
+class Menu:
+    """Fenêtre layer-shell listant les actions, placée près du curseur."""
+
+    def __init__(
+        self,
+        monitor,
+        geometry: Rect,
+        reserved: Insets,
+        position: tuple[int, int],
+        offset: tuple[int, int],
+    ) -> None:
+        self._monitor = monitor
+        self._geometry = geometry
+        self._reserved = reserved
+        self._position = position
+        self._offset = offset
+        self._window = None
+        self._action: str | None = None
+
+    def run(self) -> str | None:
+        """Affiche le menu et renvoie l'action choisie (ou ``None``)."""
+        self._window = self._build_window()
+
+        # Position provisoire, la taille exacte étant encore inconnue : évite que
+        # la surface apparaisse un instant dans le coin avant d'être ajustée.
+        self._set_margins(self._position)
+
+        self._window.show_all()
+        self._drain_events()
+
+        # Correction finale en tenant compte de la taille réellement allouée.
+        size = self._window_size()
+        self._set_margins(
+            menu_origin(self._position, self._geometry, self._reserved, size, self._offset)
+        )
+
+        Gtk.main()
+        return self._action
+
+    def _build_window(self):
+        install_css()
+
+        window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
+        window.set_name(APP_NAME)
+        window.set_decorated(False)
+        window.set_resizable(False)
+        window.set_skip_taskbar_hint(True)
+        window.set_skip_pager_hint(True)
+        window.set_keep_above(True)
+        window.set_accept_focus(True)
+
+        visual = window.get_screen().get_rgba_visual()
+        if visual is not None:
+            window.set_visual(visual)
+
+        GtkLayerShell.init_for_window(window)
+        GtkLayerShell.set_namespace(window, APP_NAME)
+        GtkLayerShell.set_layer(window, GtkLayerShell.Layer.OVERLAY)
+        GtkLayerShell.set_monitor(window, self._monitor)
+        GtkLayerShell.set_keyboard_mode(window, GtkLayerShell.KeyboardMode.EXCLUSIVE)
+        GtkLayerShell.set_anchor(window, GtkLayerShell.Edge.LEFT, True)
+        GtkLayerShell.set_anchor(window, GtkLayerShell.Edge.TOP, True)
+        GtkLayerShell.set_exclusive_zone(window, 0)
+
+        card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        card.set_name("card")
+        card.set_border_width(3)
+        window.add(card)
+
+        for label, action in ACTIONS:
+            card.pack_start(self._make_button(label, action), False, False, 0)
+
+        window.connect("key-press-event", self._on_key)
+        window.connect("destroy", self._on_destroy)
+
+        return window
+
+    def _make_button(self, label, action):
+        button = Gtk.Button()
+        button.get_style_context().add_class("action")
+        button.set_relief(Gtk.ReliefStyle.NONE)
+        button.set_can_focus(True)
+
+        text = Gtk.Label(label=label)
+        text.set_xalign(0)
+        button.add(text)
+
+        button.connect("clicked", lambda _button: self._choose(action))
+        return button
+
+    def _set_margins(self, origin: tuple[int, int]) -> None:
+        left = max(0, origin[0] - self._geometry.x - self._reserved.left)
+        top = max(0, origin[1] - self._geometry.y - self._reserved.top)
+
+        GtkLayerShell.set_margin(self._window, GtkLayerShell.Edge.LEFT, int(left))
+        GtkLayerShell.set_margin(self._window, GtkLayerShell.Edge.TOP, int(top))
+
+    def _window_size(self) -> tuple[int, int]:
+        allocation = self._window.get_allocation()
+        return (
+            max(allocation.width, MENU_MIN_SIZE[0]),
+            max(allocation.height, MENU_MIN_SIZE[1]),
+        )
+
+    def _choose(self, action: str | None) -> None:
+        self._action = action
+        self._window.destroy()
+
+    def _on_key(self, _window, event) -> bool:
+        key = (Gdk.keyval_name(event.keyval) or "").lower()
+        action = KEYBINDS.get(key)
+        if action is None:
+            return False
+
+        self._choose(action)
+        return True
+
+    def _on_destroy(self, _window) -> None:
+        Gtk.main_quit()
+
+    @staticmethod
+    def _drain_events() -> None:
+        while Gtk.events_pending():
+            Gtk.main_iteration_do(False)
+
+
+def show_menu(config: Config) -> str | None:
+    """Affiche le menu d'actions et renvoie le choix de l'utilisateur."""
+    display = Gdk.Display.get_default()
+    if display is None:
+        raise RuntimeError("Aucune session graphique GTK disponible")
+
+    position = cursor_position()
+    monitor = monitor_at(display, position) if position is not None else None
+    monitor = monitor or display.get_primary_monitor() or display.get_monitor(0)
+    if monitor is None:
+        raise RuntimeError("Aucun moniteur disponible")
+
+    geometry = rect_of(monitor.get_geometry())
+
+    # Sans position de curseur (ex. Sway), placement prévisible : coin du moniteur.
+    if position is None:
+        position = (geometry.x + 48, geometry.y + 48)
+
+    offset = (config.menu_offset_x, config.menu_offset_y)
+
+    return Menu(monitor, geometry, monitor_reserved(geometry), position, offset).run()
+
+
+# --- Actions sur l'image ----------------------------------------------------
+
+def save_image(image: Path, config: Config) -> Path:
+    config.save_directory.mkdir(parents=True, exist_ok=True)
+
+    stem = dt.datetime.now().strftime(config.filename_format)
+    suffix = image.suffix or ".png"
+
+    destination = config.save_directory / f"{stem}{suffix}"
+    counter = 2
+    while destination.exists():
+        destination = config.save_directory / f"{stem}_{counter}{suffix}"
+        counter += 1
+
+    shutil.copyfile(image, destination)
+    return destination
+
+
+def copy_image(image: Path) -> None:
+    require_commands(["wl-copy"])
+
+    with image.open("rb") as source:
+        subprocess.run(["wl-copy", "--type", image_mime(image)], stdin=source, check=True)
+
+
+def upload_image(image: Path, config: Config) -> str:
+    require_commands(["curl", "wl-copy"])
+
+    if not config.slink_host or not config.slink_api_key:
+        raise RuntimeError(
+            "Slink non configuré : renseigne « slink.host » et « slink.api_key » dans "
+            + str(CONFIG_PATH)
+        )
+
+    mime = image_mime(image)
+    extension = mimetypes.guess_extension(mime) or ".png"
+
+    # SvelteKit refuse les POST en form-data sans header Origin correspondant à
+    # l'hôte (« Cross-site POST form submissions are forbidden »).
+    host_url = urlparse(config.slink_host)
+    origin = f"{host_url.scheme}://{host_url.netloc}"
+
+    form = [
+        "curl",
+        "--silent",
+        "--show-error",
+        "--location",
+        "--connect-timeout",
+        "10",
+        "--max-time",
+        "90",
+        "--header",
+        f"Authorization: Bearer {config.slink_api_key}",
+        "--header",
+        "Accept: application/json",
+        "--header",
+        f"Origin: {origin}",
+        "--form",
+        f"image=@-;type={mime};filename=capture{extension}",
+    ]
+
+    if config.collection_id:
+        try:
+            uuid.UUID(config.collection_id)
+        except ValueError as exc:
+            raise RuntimeError(
+                f"collection_id invalide : « {config.collection_id} » n'est pas un UUID"
+            ) from exc
+
+        form += ["--form", f"collectionIds[]={config.collection_id}"]
+
+    form += ["--write-out", "\n%{http_code}", f"{config.slink_host}/api/external/upload"]
+
+    with image.open("rb") as source:
+        result = subprocess.run(
+            form,
+            stdin=source,
+            capture_output=True,
+            text=True,
+            timeout=100,
+            check=False,
+        )
+
+    if result.returncode != 0:
+        raise RuntimeError(
+            redact(
+                f"Échec de l'upload (curl {result.returncode}) : "
+                f"{result.stderr.strip()[:300]}",
+                config.slink_api_key,
+            )
+        )
+
+    body, _, status = result.stdout.rpartition("\n")
+    if not status.startswith("2"):
+        raise RuntimeError(
+            redact(
+                f"Slink a répondu HTTP {status or '?'} : {body.strip()[:300]}",
+                config.slink_api_key,
+            )
+        )
+
+    try:
+        payload = json.loads(body)
+    except ValueError as exc:
+        raise RuntimeError(f"Réponse de Slink illisible : {body.strip()[:300]!r}") from exc
+
+    raw_url = payload.get("url")
+    if not raw_url:
+        raise RuntimeError(f"Réponse d'upload sans URL : {body.strip()[:300]!r}")
+
+    # Slink renvoie une URL relative (ex. "i/abc123") : on la résout sur le host.
+    url = urljoin(config.slink_host + "/", raw_url)
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https") or not parsed.hostname:
+        raise RuntimeError(f"Réponse d'upload inattendue : {body.strip()[:300]!r}")
+
+    subprocess.run(["wl-copy", "--type", "text/plain"], input=url.encode(), check=True)
+    return url
+
+
+def perform(action: str, image: Path, config: Config) -> None:
+    if action == "copy":
+        copy_image(image)
+        notify("Capture copiée", "Image copiée dans le presse-papiers")
+
+    elif action == "save":
+        destination = save_image(image, config)
+        notify("Capture enregistrée", str(destination))
+
+    elif action == "upload":
+        url = upload_image(image, config)
+        notify("Upload terminé", url)
+
+
+# --- Entrée du programme ----------------------------------------------------
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Menu compact pour une image PNG")
+    parser.add_argument("--image", type=Path, help="ouvrir le menu sur une image existante")
+    return parser.parse_args(argv)
+
+
+def load_image(source: Path | None, folder: Path) -> Path:
+    """Renvoie l'image à traiter : le fichier fourni, ou une copie de stdin."""
+    if source is not None:
+        if not source.is_file():
+            raise RuntimeError(f"Fichier introuvable : {source}")
+
+        return source.resolve()
+
+    if sys.stdin.isatty():
+        raise RuntimeError(
+            'Aucune image sur stdin. Exemple : grim -g "$(slurp)" - | screenshot-menu'
+        )
+
+    image = folder / "capture.png"
+    with image.open("wb") as destination:
+        shutil.copyfileobj(sys.stdin.buffer, destination)
+
+    with image.open("rb") as stream:
+        if stream.read(len(PNG_SIGNATURE)) != PNG_SIGNATURE:
+            raise RuntimeError("stdin ne contient pas une image PNG valide")
+
+    return image
+
+
+def main() -> int:
+    args = parse_args()
+
+    if not os.getenv("WAYLAND_DISPLAY"):
+        raise RuntimeError("Ce script nécessite une session Wayland")
+
+    with tempfile.TemporaryDirectory(prefix=f"{APP_NAME}-") as folder:
+        config = load_config()
+        image = load_image(args.image, Path(folder))
+
+        while True:
+            action = show_menu(config)
+            if action in (None, "cancel"):
+                return 0
+
+            try:
+                perform(action, image, config)
+                return 0
+            except (OSError, subprocess.SubprocessError, RuntimeError) as exc:
+                message = redact(str(exc), config.slink_api_key)
+                error(message)
+                notify("Erreur", message[:180])
+                # Réouvre le menu pour laisser choisir une autre action.
+
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
+        error(str(exc))
+        sys.exit(1)
