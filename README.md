@@ -60,7 +60,7 @@ Keyboard settings match Hyprland: French OSS, Caps Lock/Escape swapped.
 
 Install the following packages (names depend on your distribution):
 
-- `swayfx` (usually provides the `sway` command), `swaybg`, `swaylock`, `xorg-xwayland`
+- `swayfx` (usually provides the `sway` command), `swaybg`, `swaylock-effects` (provides `swaylock`), `xorg-xwayland`
 - `waybar`, a Wayland-capable `rofi`, `rofi-calc`, `rofi-emoji`
 - `grim`, `slurp`, `wl-clipboard`, `python-gobject`, GTK 3, `gtk-layer-shell`, `curl`, `libnotify`
 - `wireplumber` (`wpctl`), `brightnessctl`, `playerctl`, `mate-polkit`, `gcr` (SSH agent)
@@ -79,7 +79,9 @@ sway --validate -c ~/.config/sway/config
 - `Super+Return`: focus Alacritty or start tmux; `Super+Shift+Return`: new terminal.
 - `Print` / `Super+s`: select a capture region; add Shift for all screens.
   Both use the existing screenshot menu (copy/save/upload).
-- `Super+Delete`: lock with swaylock. No automatic idle/suspend is configured.
+- `Super+Delete`: lock over a blurred screenshot with swaylock-effects, falling
+  back to a solid color if only standard swaylock is available. No automatic
+  idle/suspend is configured.
 - `Super+d` / `Super+Shift+d`: restore/remove gaps on the current workspace, as in i3.
 
 `custom.severusdesk.conf` uses the existing Hyprland monitor layout. Verify connector
