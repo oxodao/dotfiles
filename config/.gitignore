@@ -29,6 +29,7 @@ gtk-3.0/*
 !alacritty/
 !dunst/
 !i3/
+!sway/
 !hypr/
 hypr/hyprland/host_specific.conf
 !waybar/

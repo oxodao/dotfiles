@@ -1,0 +1,13 @@
+@import "style.css";
+
+#workspaces button.focused {
+    border-radius: 4px;
+    background-color: #262335;
+    border: 1px solid #DE49A4;
+}
+
+#mode {
+    padding: 0 4px;
+    background-color: #FF5555;
+    color: #F8F8F2;
+}

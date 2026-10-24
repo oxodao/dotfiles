@@ -1,0 +1,18 @@
+{
+    "include": ["~/.config/waybar/config"],
+    "height": 32,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{name}"
+    },
+    "sway/mode": {
+        "format": "{}"
+    },
+    "sway/window": {
+        "max-length": 50,
+        "all-outputs": false
+    }
+}
