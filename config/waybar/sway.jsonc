@@ -6,7 +6,7 @@
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
-        "format": "{name}"
+        "format": "{value}"
     },
     "sway/mode": {
         "format": "{}"
