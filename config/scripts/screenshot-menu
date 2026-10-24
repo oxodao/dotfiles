@@ -239,7 +239,7 @@ def rect_of(rectangle) -> Rect:
     return Rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
 
 
-# --- Interrogation de Hyprland ----------------------------------------------
+# --- Interrogation du compositeur -------------------------------------------
 
 def hyprctl(*args: str, json_output: bool = False):
     """Exécute ``hyprctl`` et renvoie la sortie parsée, ou ``None`` si indispo."""
@@ -266,43 +266,250 @@ def hyprctl(*args: str, json_output: bool = False):
         return None
 
 
-def cursor_position() -> tuple[int, int] | None:
+def swaymsg(*args: str, json_output: bool = False):
+    """Exécute ``swaymsg`` et renvoie la sortie parsée, ou ``None`` si indispo."""
+    if not (os.getenv("SWAYSOCK") and shutil.which("swaymsg")):
+        return None
+
+    command = ["swaymsg", *args]
+    if json_output:
+        command.append("-t")
+        # args are passed as-is; caller should include the type when needed
+    # Better to handle types explicitly in callers
+
+    try:
+        result = subprocess.run(
+            command, capture_output=True, text=True, timeout=2, check=False
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+    if result.returncode != 0 or not result.stdout:
+        return None
+
+    if json_output:
+        try:
+            return json.loads(result.stdout)
+        except ValueError:
+            return None
+
+    return result.stdout
+
+
+def _parse_slurp_point(output: str) -> tuple[int, int] | None:
+    try:
+        m = re.findall(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", output)
+        if len(m) >= 2:
+            return int(float(m[0])), int(float(m[1]))
+    except Exception:
+        pass
+    return None
+
+
+def cursor_position(args: argparse.Namespace | None = None) -> tuple[int, int] | None:
     """Coordonnées globales du curseur, ou ``None`` si indisponibles.
 
     On évite volontairement tout repli vers un coin d'écran : l'appelant choisit
     alors un placement explicite plutôt que d'envoyer le menu très loin.
     """
-    data = hyprctl("cursorpos", json_output=True)
-    if isinstance(data, dict):
+    if args is not None:
+        if getattr(args, "cursor_x", None) is not None and getattr(args, "cursor_y", None) is not None:
+            try:
+                return int(round(float(args.cursor_x))), int(round(float(args.cursor_y)))
+            except Exception:
+                pass
+        if getattr(args, "pos", None):
+            try:
+                p = _parse_slurp_point(args.pos)
+                if p:
+                    return p
+            except Exception:
+                pass
+
+    # Variables d'env
+    for k in ("SCREENSHOT_MENU_CURSOR", "SLURP_CURSOR", "CURSOR_POS"):
         try:
-            return int(data["x"]), int(data["y"])
-        except (KeyError, ValueError):
+            v = os.getenv(k)
+            if v:
+                p = _parse_slurp_point(v)
+                if p:
+                    return p
+        except Exception:
+            pass
+    for kx, ky in (
+        ("SCREENSHOT_MENU_CURSOR_X", "SCREENSHOT_MENU_CURSOR_Y"),
+        ("CURSOR_X", "CURSOR_Y"),
+        ("SLURP_X", "SLURP_Y"),
+        ("XCURSOR_X", "XCURSOR_Y"),
+    ):
+        try:
+            if os.getenv(kx) and os.getenv(ky):
+                return int(round(float(os.getenv(kx)))), int(round(float(os.getenv(ky))))
+        except Exception:
             pass
 
-    # Anciennes versions de hyprctl : sortie brute "x, y", sans JSON.
-    raw = hyprctl("cursorpos")
-    if raw:
+    # Depuis geometry slurp (x,y,w,h)
+    for k in ("SCREENSHOT_MENU_GEOMETRY", "SLURP_GEOMETRY"):
         try:
-            x, y = raw.strip().split(",", 1)
-            return int(x), int(y)
-        except ValueError:
+            v = os.getenv(k)
+            if v:
+                m = re.findall(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", v)
+                if len(m) >= 4:
+                    x, y, w, h = float(m[0]), float(m[1]), float(m[2]), float(m[3])
+                    return int(round(x + w)), int(round(y + h))
+                if len(m) >= 2:
+                    return int(round(float(m[0]))), int(round(float(m[1])))
+        except Exception:
+            pass
+
+    # Sway : coordonnées logiques (impactées par le scale)
+    if os.getenv("SWAYSOCK") and shutil.which("swaymsg"):
+        try:
+            result = subprocess.run(
+                ["swaymsg", "-r", "-t", "get_seats"],
+                capture_output=True,
+                text=True,
+                timeout=2,
+                check=False,
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                seats = json.loads(result.stdout)
+                if seats and isinstance(seats[0], dict):
+                    seat = seats[0]
+                    cp = seat.get("cursor_position")
+                    if isinstance(cp, dict) and "x" in cp and "y" in cp:
+                        return int(round(float(cp["x"]))), int(round(float(cp["y"])))
+        except Exception:
+            pass
+
+    # Hyprland
+    if os.getenv("HYPRLAND_INSTANCE_SIGNATURE") and shutil.which("hyprctl"):
+        data = hyprctl("cursorpos", json_output=True)
+        if isinstance(data, dict):
+            try:
+                return int(round(float(data["x"]))), int(round(float(data["y"])))
+            except (KeyError, ValueError):
+                pass
+
+        raw = hyprctl("cursorpos")
+        if raw:
+            try:
+                m = re.findall(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", raw)
+                if len(m) >= 2:
+                    return int(round(float(m[0]))), int(round(float(m[1])))
+            except ValueError:
+                pass
+
+    # GTK/GDK
+    try:
+        display = Gdk.Display.get_default()
+        if display is not None:
+            try:
+                seat = display.get_default_seat()
+                if seat is not None:
+                    pointer = seat.get_pointer()
+                    if pointer is not None:
+                        _, x, y = pointer.get_position()
+                        if x != 0 or y != 0:
+                            return int(round(float(x))), int(round(float(y)))
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    if shutil.which("slurp"):
+        try:
+            result = subprocess.run(
+                ["slurp", "-p"],
+                capture_output=True,
+                text=True,
+                timeout=0.2,
+                check=False,
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                pos = _parse_slurp_point(result.stdout)
+                if pos:
+                    return pos
+        except Exception:
             pass
 
     return None
 
 
 def monitor_reserved(geometry: Rect) -> Insets:
-    """Espace réservé (barres) sur le moniteur, via l'IPC Hyprland.
+    """Espace réservé (barres) sur le moniteur.
 
-    L'ordre du JSON Hyprland est ``[left, top, right, bottom]``. Les surfaces
-    layer ancrées sont placées après ces zones exclusives : sans correction, le
-    menu est décalé de la hauteur de la barre.
+    Hyprland expose ``reserved`` via ``hyprctl monitors``. Sur Sway/wlroots, on
+    ne dispose pas d'un équivalent direct fiable via IPC simple : on renvoie
+    donc ``Insets(0,0,0,0)`` et on s'appuie sur le clamp par géométrie GDK.
     """
+    if os.getenv("SWAYSOCK"):
+        return Insets(0, 0, 0, 0)
+
     monitors = hyprctl("monitors", json_output=True)
     for monitor in monitors or []:
         if monitor.get("x") == geometry.x and monitor.get("y") == geometry.y:
-            left, top, right, bottom = monitor.get("reserved", (0, 0, 0, 0))
-            return Insets(int(left), int(top), int(right), int(bottom))
+            reserved = monitor.get("reserved", (0, 0, 0, 0))
+            try:
+                left, top, right, bottom = reserved
+                return Insets(int(left), int(top), int(right), int(bottom))
+            except (TypeError, ValueError):
+                pass
+
+    # Sway/wlroots: tenter de détecter les barres (waybar)
+    if os.getenv("SWAYSOCK") and shutil.which("swaymsg"):
+        try:
+            result = subprocess.run(
+                ["swaymsg", "-t", "get_tree", "-r"],
+                capture_output=True,
+                text=True,
+                timeout=2,
+                check=False,
+            )
+            if result.returncode == 0 and result.stdout:
+                tree = json.loads(result.stdout)
+                top = left = right = bottom = 0
+
+                def walk(node):
+                    nonlocal top, left, right, bottom
+                    if isinstance(node, dict):
+                        rect = node.get("rect") or {}
+                        if rect:
+                            nx = int(rect.get("x", 0))
+                            ny = int(rect.get("y", 0))
+                            nw = int(rect.get("width", 0))
+                            nh = int(rect.get("height", 0))
+                            app_id = (node.get("app_id") or "").lower()
+                            name = (node.get("name") or "").lower()
+                            # Heuristique: barre en haut
+                            if nh > 0 and nh < 60 and nw >= geometry.width - 10 and ny == geometry.y:
+                                if "waybar" in app_id or "waybar" in name or "panel" in name or "bar" in name:
+                                    if nh > top:
+                                        top = nh
+                            elif nh > 0 and nh < 60 and nw >= geometry.width - 10 and ny + nh >= geometry.y + geometry.height - 2:
+                                if "waybar" in app_id or "waybar" in name or "panel" in name or "bar" in name:
+                                    if nh > bottom:
+                                        bottom = nh
+                            elif nw > 0 and nw < 80 and nh >= geometry.height - 10 and nx == geometry.x:
+                                if "waybar" in app_id or "waybar" in name:
+                                    if nw > left:
+                                        left = nw
+                            elif nw > 0 and nw < 80 and nh >= geometry.height - 10 and nx + nw >= geometry.x + geometry.width - 2:
+                                if "waybar" in app_id or "waybar" in name:
+                                    if nw > right:
+                                        right = nw
+                        for key in ("nodes", "floating_nodes"):
+                            for child in node.get(key) or []:
+                                walk(child)
+                    elif isinstance(node, list):
+                        for child in node:
+                            walk(child)
+
+                walk(tree)
+                if top or left or right or bottom:
+                    return Insets(left, top, right, bottom)
+        except Exception:
+            pass
 
     return Insets(0, 0, 0, 0)
 
@@ -322,6 +529,14 @@ def monitor_at(display, position: tuple[int, int]):
 
 
 # --- Placement du menu ------------------------------------------------------
+
+def sway_bar_height(geometry: Rect) -> int:
+    return 0
+
+
+def sway_waybar_top(geometry: Rect) -> int:
+    return 0
+
 
 def menu_origin(
     position: tuple[int, int],
@@ -481,7 +696,7 @@ class Menu:
             Gtk.main_iteration_do(False)
 
 
-def show_menu(config: Config) -> str | None:
+def show_menu(config: Config, args=None) -> str | None:
     """Affiche le menu d'actions et renvoie le choix de l'utilisateur."""
     display = Gdk.Display.get_default()
     if display is None:
@@ -499,9 +714,13 @@ def show_menu(config: Config) -> str | None:
     if position is None:
         position = (geometry.x + 48, geometry.y + 48)
 
-    offset = (config.menu_offset_x, config.menu_offset_y)
+    offset = (0, 0)
+    reserved = Insets(0, 0, 0, 0)
+    if os.getenv("SWAYSOCK"):
+        # En raison des waybar en layer-shell, on compense la hauteur
+        position = (position[0], position[1] - 32)
 
-    return Menu(monitor, geometry, monitor_reserved(geometry), position, offset).run()
+    return Menu(monitor, geometry, reserved, position, offset).run()
 
 
 # --- Actions sur l'image ----------------------------------------------------
@@ -680,19 +899,18 @@ def main() -> int:
         config = load_config()
         image = load_image(args.image, Path(folder))
 
-        while True:
-            action = show_menu(config)
-            if action in (None, "cancel"):
-                return 0
+        action = show_menu(config, args)
+        if action in (None, "cancel"):
+            return 0
 
-            try:
-                perform(action, image, config)
-                return 0
-            except (OSError, subprocess.SubprocessError, RuntimeError) as exc:
-                message = redact(str(exc), config.slink_api_key)
-                error(message)
-                notify("Erreur", message[:180])
-                # Réouvre le menu pour laisser choisir une autre action.
+        try:
+            perform(action, image, config)
+            return 0
+        except (OSError, subprocess.SubprocessError, RuntimeError) as exc:
+            message = redact(str(exc), config.slink_api_key)
+            error(message)
+            notify("Erreur", message[:180])
+            return 1
 
     return 0
 

@@ -1,4 +1,3 @@
-/*/
 /*
 
 #region Weird things to store my vscode config without storing all vscode stuff
@@ -61,3 +60,20 @@ nvim/plugin
 zsh/scripts/comic.ttf
 
 !wallpapers
+
+#region OpenCode
+!opencode/
+opencode/*
+
+!opencode/opencode.json
+!opencode/tui.json
+!opencode/AGENTS.md
+!opencode/package.json
+
+!opencode/themes/
+!opencode/agents/
+!opencode/commands/
+!opencode/skills/
+!opencode/plugins/
+
+#endregion
