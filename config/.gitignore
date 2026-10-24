@@ -23,6 +23,10 @@ VSCodium/User/*
 gtk-3.0/*
 !gtk-3.0/settings.ini
 
+!gtk-4.0/
+gtk-4.0/*
+!gtk-4.0/settings.ini
+
 !.gitignore
 !user-dirs.dirs
 
