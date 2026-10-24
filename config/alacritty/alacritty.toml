@@ -30,3 +30,6 @@ size = 13
 
 [font.normal]
 family = "Hack Nerd Font"
+
+[window]
+opacity = 0.8
