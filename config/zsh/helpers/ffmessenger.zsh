@@ -9,7 +9,7 @@ ffmessenger() {
     -map_metadata -1 -map_chapters -1 \
     -c:v libx264 -profile:v baseline -level 3.1 -pix_fmt yuv420p \
     -vf "scale='min(1280,iw)':-2,format=yuv420p" \
-    -r 30 -fps_mode cfr -vsync cfr -crf 24 -preset veryfast \
+    -r 30 -fps_mode cfr -crf 24 -preset veryfast \
     -c:a aac -b:a 128k -ar 44100 -ac 2 \
     -movflags +faststart \
     "$2"

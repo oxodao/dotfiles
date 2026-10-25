@@ -4,9 +4,9 @@
 }
 
 #waybar {
-	font-family: 'Sauce Code Pro', sans-serif;
+  font-family: 'Sauce Code Pro', sans-serif;
   font-size: 0.95em;
-	font-weight: 400;
+  font-weight: 400;
   color: #F1B0D8;
   background: #0E0D13;
 }
@@ -60,7 +60,6 @@
 
 #window {
   font-size: 0.9em;
-	font-weight: 400;
-	font-family: sans-serif;
+  font-weight: 400;
 }
 

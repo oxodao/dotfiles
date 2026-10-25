@@ -1,5 +1,9 @@
 @import "style.css";
 
+#waybar {
+  font-family: 'DepartureMono Nerd Font Mono', sans-serif;
+}
+
 #workspaces button.focused {
     border-radius: 4px;
     background-color: #262335;
