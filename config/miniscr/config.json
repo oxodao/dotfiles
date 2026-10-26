@@ -1,0 +1,16 @@
+{
+  "save_directory": "~/Images",
+  "filename_format": "%Y_%m_%d_%H_%M_%S",
+  "picture_format": "png",
+  "upload_destination": [
+    {
+      "type": "slink",
+      "name": "Slink",
+      "args": {
+        "base_url": "secrets:slink-base-url",
+        "api_key": "secrets:slink-api-key",
+        "collection_id": "secrets:slink-collection"
+      }
+    }
+  ]
+}

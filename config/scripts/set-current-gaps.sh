@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Script to emulate my win+d / win+shift+d from my i3 setup on hyprland
+# @TODO: Remove when I drop hyprland
 
 gapsin="$1"
 gapsout="$2"
