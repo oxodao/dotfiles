@@ -69,6 +69,7 @@ zsh/scripts/comic.ttf
 #region OpenCode
 !opencode/
 opencode/*
+!opencode/custom-instructions
 
 !opencode/opencode.json
 !opencode/tui.json
