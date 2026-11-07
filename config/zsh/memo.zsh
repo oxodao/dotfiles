@@ -10,12 +10,13 @@ if [ ! -f ~/.memo.md ]; then
   fi
 fi
 
-if [ ! -f ~/.go/bin/glow ]; then
-  echo "Glow not found"
-  echo "Install it with: `go install github.com/charmbracelet/glow@latest`"
+if command -v glow >/dev/null 2>&1; then
+  glow -s dark ~/.memo.md
 else
-  ~/.go/bin/glow -s dark ~/.memo.md
+  echo "Glow not found"
+  echo "Install it with your package manager"
 fi
+
 
 alias m="~/.go/bin/glow -s dark ~/.memo.md"
 alias memo="vim ~/.memo.md"

@@ -21,10 +21,21 @@ else
         PREPROMPT="$(whoami)";
     fi
 fi
+
 if [[ -z "$SSH_CLIENT" ]]; then
         prompt_host=""
 else
         prompt_host=%{$fg_bold[white]%}@%{$reset_color$fg[yellow]%}$(hostname -s)
+fi
+
+if [[ -f /etc/smolvm-guest ]]; then
+    project_name="${SMOLVM_PROJECT:-smolvm}"
+
+    if [[ -f /etc/smolvm-project ]]; then
+        project_name="$(< /etc/smolvm-project)"
+    fi
+
+    PREPROMPT="%{$fg_bold[cyan]%}[${project_name}]%{$reset_color%} ${PREPROMPT}"
 fi
 
 local return_code="%(?..%{$R%}%? ☢ %{$RESET%})"
