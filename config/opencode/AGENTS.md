@@ -11,6 +11,10 @@ Throughout these documents you will see referred the `[BASEPATH]` path, this is 
 
 There are lots of task-specific instructions that are available in files separately but do not load them all the time. Only load the following file when they are needed.
 
+Do not request for useless extra apps (e.g. do not make me install `just` when `make` is already installed. Prefer well recognized software instead of the bullshit made by random influencers).
+
+READ THOSE FUCKING FILES IF THEY MATCH WHAT WE ARE FUCKING DOING. I'M FED UP THAT YOU DON4T UNDERSTAND BASIC GUIDANCES.
+
 
 `[BASEPATH]/general_coding.md`: Any project that write code should read this file.
 
