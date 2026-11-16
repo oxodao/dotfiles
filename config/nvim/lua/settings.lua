@@ -27,9 +27,8 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- Set colorscheme
+-- The colorscheme is applied by lua/plugins/theme.lua.
 vim.o.termguicolors = true
-vim.cmd [[colorscheme synthwave84]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

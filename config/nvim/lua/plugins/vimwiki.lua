@@ -1,6 +1,12 @@
-vim.g.vimwiki_list = {{
-    path = '~/.vimwiki/',
-    syntax = 'markdown',
-    ext = 'md'
-}}
-vim.g.vimwiki_global_ext = 0
+return {
+  'vimwiki/vimwiki',
+  -- Vimwiki reads these globals while sourcing its Vimscript plugin.
+  init = function()
+    vim.g.vimwiki_list = { {
+      path = '~/.vimwiki/',
+      syntax = 'markdown',
+      ext = 'md',
+    } }
+    vim.g.vimwiki_global_ext = 0
+  end,
+}
