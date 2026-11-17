@@ -42,5 +42,10 @@ if typeset -f zsh_custom_post > /dev/null 2>&1; then
   zsh_custom_post
 fi
 
+# Apply machine-specific overrides after the shared configuration.
+if [[ -f "$HOME/.config/zsh/per_computer/$HOST.zsh" ]]; then
+	source "$HOME/.config/zsh/per_computer/$HOST.zsh"
+fi
+
 # Display the memo file
 source $HOME/.config/zsh/memo.zsh
