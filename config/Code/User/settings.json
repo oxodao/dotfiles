@@ -175,5 +175,6 @@
     "chat.tips.enabled": false,
     "chat.viewSessions.orientation": "stacked",
     "python.languageServer": "Default",
-    "editor.largeFileOptimizations": false
+    "editor.largeFileOptimizations": false,
+    "js/ts.updateImportsOnFileMove.enabled": "always"
 }
